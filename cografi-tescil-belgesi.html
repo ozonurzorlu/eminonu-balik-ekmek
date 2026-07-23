@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Eminönü Balık Ekmeği coğrafi işaret tescil belgesi."
+    />
+    <title>Coğrafi Tescil Belgesi | Eminönü Balık Ekmeği</title>
+    <link rel="icon" type="image/png" href="assets/eminonu-balik-ekmek-logo-transparent-clean.png" />
+    <link rel="stylesheet" href="style.css?v=20260722-palette-petrol-amber" />
+  </head>
+  <body class="certificate-page">
+    <div class="certificate-actions">
+      <a
+        class="certificate-download"
+        href="assets/cografi-tescil-belgesi.jpeg"
+        download="Eminonu-Balik-Ekmek-Cografi-Isaret-Tescil-Belgesi.jpeg"
+        aria-label="Coğrafi işaret tescil belgesini indir"
+      >
+        <i class="bi bi-download" aria-hidden="true"></i>
+        <span>İndir</span>
+      </a>
+      <button class="certificate-close" type="button" aria-label="Belgeyi kapat" data-certificate-close>
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    </div>
+    <main class="certificate-viewer" aria-label="Coğrafi tescil belgesi">
+      <img
+        src="assets/cografi-tescil-belgesi.jpeg"
+        alt="Coğrafi işaret tescil belgesi"
+        decoding="async"
+      />
+    </main>
+    <script>
+      const closeButton = document.querySelector("[data-certificate-close]");
+      const certificateViewer = document.querySelector(".certificate-viewer");
+      let viewerClosing = false;
+
+      const closeViewer = () => {
+        if (viewerClosing) {
+          return;
+        }
+
+        viewerClosing = true;
+
+        if (window.history.length > 1) {
+          window.history.back();
+          return;
+        }
+
+        window.location.href = "index.html";
+      };
+
+      closeButton?.addEventListener("click", closeViewer);
+
+      certificateViewer?.addEventListener("click", (event) => {
+        if (event.target === certificateViewer) {
+          closeViewer();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeViewer();
+        }
+      });
+    </script>
+  </body>
+</html>
