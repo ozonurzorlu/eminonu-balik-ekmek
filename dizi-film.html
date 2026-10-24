@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Eminönü Balık Ekmeği'nin yer aldığı dizi, film ve şarkı içerikleri." />
-    <title>Dizi–Film | Eminönü Balık Ekmeği</title>
-   <link rel="icon" type="image/png" href="assets/eminonu-balik-ekmek-logo-transparent-clean.png" />
+    <title>Dizi-Film-Şarkı | Eminönü Balık Ekmeği</title>
+   <link rel="icon" type="image/png" href="assets/eminönü_balik_ekmek_logo.png" />
     <script src="reload-bootstrap.js?v=20260722-reload-top-first"></script>
     <script>document.documentElement.classList.add("reveal-enabled");</script>
-    <link rel="stylesheet" href="style.css?v=20260722-palette-petrol-amber" />
+    <link rel="stylesheet" href="style.css?v=20260729-series-films-opening-motion" />
   </head>
   <body>
     <header class="site-header header-solid" data-header>
@@ -23,11 +23,12 @@
         <div class="nav-item has-dropdown">
           <button class="nav-trigger" type="button" aria-haspopup="true">Hakkımızda</button>
           <div class="submenu" aria-label="Hakkımızda alt menüsü">
-            <a href="eminonu-balik-ekmek.html">Eminönü Balık Ekmeği</a>
+            <a href="eminonu-balik-ekmegi.html">Eminönü Balık Ekmeği</a>
             <a href="istanbul-ticaret-borsasi.html">İstanbul Ticaret Borsası</a>
           </div>
         </div>
-        <a href="tarihce.html">Tarihçe</a>
+        <a href="cografi-isaret.html">Coğrafi Tescil</a>
+        <a href="kutuphane.html">Kütüphane</a>
         <a href="firmalar-ve-satis-noktalari.html">Balık Ekmek Satış Noktaları</a>
         <a href="basin-kiti.html">Basın Kiti</a>
         <a href="iletisim.html">İletişim</a>
@@ -45,7 +46,8 @@
       <section class="books-section" aria-labelledby="series-films-title">
         <div class="section-inner">
           <div class="books-head">
-            <h1 id="series-films-title">Dizi–Film</h1>
+            <h1 id="series-films-title">Dizi-Film-Şarkı</h1>
+            <p>Eminönü Balık Ekmek’in Yeşilçam’dan günümüze uzanan yolculuğuna; unutulmaz dizi sahneleri, sinema filmleri ve şarkılar eşliğinde tanıklık edin.</p>
           </div>
 
           <div class="documentary-grid" aria-label="Dizi, film ve şarkı içerikleri">
@@ -81,42 +83,54 @@
               <span class="documentary-copy"><h2>Veda Busesi</h2><span>1965</span></span>
             </a>
 
-            <article class="documentary-card song-card" data-audio-card data-audio-title="Her Şey Senle">
+            <article class="documentary-card song-card">
               <div class="documentary-thumbnail song-thumbnail">
-                <span class="song-cover-art" aria-hidden="true">
-                  <span>Eminönü Balık Ekmeği</span>
-                  <i class="bi bi-music-note-beamed"></i>
-                </span>
+                <img src="assets/library/series-films/istanbulda-olmak-vardi.jpg" alt="Emel Müftüoğlu - İstanbul'da Olmak Vardı video görüntüsü" loading="lazy" decoding="async" />
                 <button
                   class="documentary-play song-play"
                   type="button"
-                  data-audio-toggle
-                  aria-label="Her Şey Senle şarkısını oynat"
-                  aria-pressed="false"
+                  data-video-open
+                  data-video-src="https://www.youtube.com/watch?v=OoApY_QUMD0&t=92s"
+                  aria-label="İstanbul'da Olmak Vardı şarkısını oynat"
                 >
-                  <i class="bi bi-play-fill" data-audio-icon aria-hidden="true"></i>
+                  <i class="bi bi-play-fill" aria-hidden="true"></i>
                 </button>
               </div>
               <div class="documentary-copy">
-                <h2>Her Şey Senle</h2>
-                <span class="song-label"><i class="bi bi-music-note-beamed" aria-hidden="true"></i> Şarkı</span>
-                <span class="visually-hidden" data-audio-status aria-live="polite">Şarkı oynatılmaya hazır.</span>
+                <h2>İstanbul'da Olmak Vardı</h2>
+                <span class="song-label"><i class="bi bi-music-note-beamed" aria-hidden="true"></i> Emel Müftüoğlu · 2018</span>
               </div>
-              <audio data-audio-player preload="metadata" src="assets/library/series-films/her-sey-senle.mp3"></audio>
             </article>
           </div>
         </div>
       </section>
     </main>
 
+    <div class="video-modal documentary-video-modal" data-video-modal aria-hidden="true">
+      <div class="documentary-video-actions">
+        <a class="documentary-video-youtube" data-video-youtube href="#" target="_blank" rel="noreferrer">
+          <i class="bi bi-youtube" aria-hidden="true"></i>
+          <span>YouTube'da aç</span>
+        </a>
+        <button class="video-modal-close" type="button" data-video-close aria-label="Videoyu kapat">×</button>
+      </div>
+      <div class="video-modal-dialog" role="dialog" aria-modal="true" aria-label="Şarkı videosu">
+        <div class="video-frame-wrap">
+          <iframe data-video-frame title="Şarkı videosu" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
     <footer class="site-footer">
       <div class="section-inner footer-main">
-        <div class="footer-contact-block">
-          <h2>İstanbul Ticaret Borsası</h2>
-          <p>Hobyar Mah. Zahire Borsası Sokak</p>
-          <p>No:3 34112 Bahçekapı / Fatih / İstanbul</p>
-          <p><strong>Phone:</strong> 0 (212) 511-8440-138</p>
-          <p><strong>Email:</strong> arge@istib.org.tr</p>
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" aria-label="Ana sayfaya dön">
+            <img src="assets/eminönü_balik_ekmek_logo.png" alt="Eminönü Balık Ekmek" loading="lazy" decoding="async" />
+            <span>Eminönü Balık Ekmek</span>
+          </a>
+          <p class="footer-brand-copy">
+            İstanbul Ticaret Borsası güvencesiyle coğrafi işaretle tescillenen Eminönü Balık Ekmeği'nin resmî tanıtım platformu.
+          </p>
           <div class="footer-socials" aria-label="Sosyal medya">
             <a href="https://www.instagram.com/istanbulticaretborsasi/?hl=tr" target="_blank" rel="noreferrer" aria-label="Instagram hesabı"><i class="bi bi-instagram" aria-hidden="true"></i></a>
             <a href="https://x.com/istib1924" target="_blank" rel="noreferrer" aria-label="X hesabı"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
@@ -125,20 +139,34 @@
             <a href="https://www.linkedin.com/company/istib1924/posts/?feedView=all" target="_blank" rel="noreferrer" aria-label="LinkedIn hesabı"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
           </div>
         </div>
-        <nav class="footer-menu" aria-label="Alt menü">
+
+        <nav class="footer-col" aria-label="Hızlı erişim">
           <a href="index.html">Ana Sayfa</a>
-          <a href="eminonu-balik-ekmek.html">Hakkımızda</a>
+          <a href="tarihce.html">Hakkımızda</a>
+          <a href="cografi-isaret.html">Coğrafi Tescil</a>
+          <a href="firmalar-ve-satis-noktalari.html">Satış Noktaları</a>
           <a href="basvuru-formu.html">Başvuru Formu</a>
-          <a href="firmalar-ve-satis-noktalari.html">Firmalar ve Satış Noktaları</a>
-          <a href="tarihce.html">Tarihçe</a>
         </nav>
-        <a class="footer-badge" href="index.html" aria-label="Ana sayfaya dön">
-          <img src="assets/eminonu-balik-ekmek-logo-transparent-clean.png" alt="Eminönü Balık Ekmek" loading="lazy" decoding="async" />
-          <span>Eminönü Balık Ekmek</span>
-        </a>
+
+        <nav class="footer-col" aria-label="Kaynaklar">
+          <a href="tarihce.html">Tarihçe</a>
+          <a href="kutuphane.html">Kütüphane</a>
+          <a href="denetimler.html">Denetimler</a>
+          <a href="basin-kiti.html">Basın Kiti</a>
+          <a href="iletisim.html">İletişim</a>
+        </nav>
+
+        <div class="footer-col footer-contact-block">
+          <p class="footer-org-name">İstanbul Ticaret Borsası</p>
+          <p>Hobyar Mah. Zahire Borsası Sokak<br />No:3 34112 Bahçekapı / Fatih / İstanbul</p>
+          <p><strong>Telefon:</strong> 0 (212) 511 84 40 / 138</p>
+          <p><strong>E-posta:</strong> <a href="mailto:arge@istib.org.tr">arge@istib.org.tr</a></p>
+        </div>
       </div>
-      <div class="section-inner footer-bottom"><p>© Copyright <strong>İSTİB</strong> All Rights Reserved</p></div>
+      <div class="section-inner footer-bottom">
+        <p>© Copyright <strong>İSTİB</strong> All Rights Reserved</p>
+      </div>
     </footer>
-    <script src="script.js?v=20260722-scrollbar-soft-hide"></script>
+    <script src="script.js?v=20260729-series-films-opening-motion"></script>
   </body>
 </html>

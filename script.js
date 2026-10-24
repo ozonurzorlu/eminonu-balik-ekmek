@@ -6,6 +6,65 @@ const prefersReducedReloadMotion = window.matchMedia(
 ).matches;
 let reloadTransitionRunning = false;
 
+document.querySelectorAll(".main-nav").forEach((navigation) => {
+  if (navigation.querySelector("[data-history-nav]")) {
+    return;
+  }
+
+  const historyLink = document.createElement("a");
+  historyLink.href = "tarihce.html";
+  historyLink.textContent = "Tarihçe";
+  historyLink.dataset.historyNav = "";
+
+  if (window.location.pathname.endsWith("/tarihce.html")) {
+    historyLink.setAttribute("aria-current", "page");
+  }
+
+  const aboutMenu = navigation.querySelector(".nav-item.has-dropdown");
+  aboutMenu?.insertAdjacentElement("afterend", historyLink);
+});
+
+const refreshFooterNavigation = () => {
+  const footerNavs = Array.from(document.querySelectorAll(".site-footer nav.footer-col"));
+  if (footerNavs.length < 2) {
+    return;
+  }
+
+  const groups = [
+    [
+      ["Ana Sayfa", "index.html"],
+      ["Eminönü Balık Ekmeği", "eminonu-balik-ekmegi.html"],
+      ["İstanbul Ticaret Borsası", "istanbul-ticaret-borsasi.html"],
+      ["Tarihçe", "tarihce.html"],
+      ["Coğrafi Tescil", "cografi-isaret.html"],
+      ["Balık Ekmek Satış Noktaları", "firmalar-ve-satis-noktalari.html"],
+    ],
+    [
+      ["Kütüphane", "kutuphane.html"],
+      ["Arşiv Haberler", "arsiv-haberler.html"],
+      ["Denetimler", "denetimler.html"],
+      ["Basın Kiti", "basin-kiti.html"],
+      ["Başvuru Formu", "basvuru-formu.html"],
+      ["İletişim", "iletisim.html"],
+    ],
+  ];
+
+  footerNavs.slice(0, 2).forEach((navigation, index) => {
+    const links = groups[index].map(([label, href]) => {
+      const link = document.createElement("a");
+      link.href = href;
+      link.textContent = label;
+      if (window.location.pathname.endsWith(`/${href}`)) {
+        link.setAttribute("aria-current", "page");
+      }
+      return link;
+    });
+    navigation.replaceChildren(...links);
+  });
+};
+
+refreshFooterNavigation();
+
 const currentReloadPath = () => `${window.location.pathname}${window.location.search}`;
 const isHomePagePath = () =>
   window.location.pathname.endsWith("/") ||
@@ -500,15 +559,50 @@ const nav = document.querySelector("[data-nav]");
 const aboutNavItem = document.querySelector(".nav-item.has-dropdown");
 const aboutNavTrigger = aboutNavItem?.querySelector(".nav-trigger");
 const mobileNavMedia = window.matchMedia("(max-width: 940px)");
+const primaryNavLinks = document.querySelectorAll(
+  ".main-nav > a, .main-nav .submenu a",
+);
 const contactForm = document.querySelector("[data-contact-form]");
-const formStatus = document.querySelector("[data-form-status]");
+const formSuccessModal = document.querySelector("[data-form-success-modal]");
+const formSuccessCloseButtons = document.querySelectorAll("[data-form-success-close]");
 const year = document.querySelector("[data-year]");
 const videoModal = document.querySelector("[data-video-modal]");
 const videoFrame = document.querySelector("[data-video-frame]");
 const videoClose = document.querySelector("[data-video-close]");
 const videoOpeners = document.querySelectorAll("[data-video-open]");
+
+let applicationInvalidScrollQueued = false;
+
+document.addEventListener(
+  "invalid",
+  (event) => {
+    const field = event.target;
+    const form = field instanceof HTMLElement ? field.closest(".application-form") : null;
+
+    if (!form || !window.matchMedia("(max-width: 720px)").matches || applicationInvalidScrollQueued) {
+      return;
+    }
+
+    applicationInvalidScrollQueued = true;
+    window.requestAnimationFrame(() => {
+      field.scrollIntoView({ behavior: "smooth", block: "center" });
+      window.setTimeout(() => {
+        applicationInvalidScrollQueued = false;
+      }, 350);
+    });
+  },
+  true,
+);
+const videoYouTubeLink = document.querySelector("[data-video-youtube]");
+const pdfModal = document.querySelector("[data-pdf-modal]");
+const pdfFrame = document.querySelector("[data-pdf-frame]");
+const pdfClose = document.querySelector("[data-pdf-close]");
+const pdfOpeners = document.querySelectorAll("[data-pdf-open]");
+const pdfDownloadLink = document.querySelector("[data-pdf-download]");
+const pdfSaveLink = document.querySelector("[data-pdf-save]");
 const pressLogoModal = document.querySelector("[data-press-logo-modal]");
 const pressLogoModalImage = document.querySelector("[data-press-logo-modal-image]");
+const pressLogoDownload = document.querySelector("[data-press-logo-download]");
 const pressLogoClose = document.querySelector("[data-press-logo-close]");
 const pressLogoOpeners = document.querySelectorAll("[data-press-logo-open]");
 const pressPhotoModal = document.querySelector("[data-press-photo-modal]");
@@ -516,6 +610,8 @@ const pressPhotoModalImage = document.querySelector("[data-press-photo-modal-ima
 const pressPhotoDownload = document.querySelector("[data-press-photo-download]");
 const pressPhotoClose = document.querySelector("[data-press-photo-close]");
 const pressPhotoOpeners = document.querySelectorAll("[data-press-photo-open]");
+const pressPhotoPrevious = document.querySelector("[data-press-photo-prev]");
+const pressPhotoNext = document.querySelector("[data-press-photo-next]");
 const heroCarousel = document.querySelector("[data-hero-carousel]");
 const heroSlides = document.querySelectorAll("[data-hero-slide]");
 const heroDots = document.querySelectorAll("[data-hero-dot]");
@@ -531,10 +627,32 @@ const historyLightboxNext = document.querySelector("[data-history-lightbox-next]
 const historyPhotoOpeners = Array.from(document.querySelectorAll("[data-history-photo-open]"));
 const newsCarousel = document.querySelector("[data-news-carousel]");
 const newsTrack = document.querySelector("[data-news-track]");
-const newsCards = Array.from(document.querySelectorAll("[data-news-card]"));
+
+if (newsTrack) {
+  const orderedNewsCards = Array.from(newsTrack.querySelectorAll("[data-news-card]")).sort((first, second) => {
+    const firstDate = first.dataset.newsDate || "";
+    const secondDate = second.dataset.newsDate || "";
+
+    if (firstDate === "9999-12-31") {
+      return 1;
+    }
+
+    if (secondDate === "9999-12-31") {
+      return -1;
+    }
+
+    return secondDate.localeCompare(firstDate);
+  });
+
+  orderedNewsCards.forEach((card, index) => {
+    newsTrack.append(card);
+    card.setAttribute("aria-label", `${index + 1} / ${orderedNewsCards.length}`);
+  });
+}
+
+let newsCards = Array.from(document.querySelectorAll("[data-news-card]"));
 const newsPrev = document.querySelector("[data-news-prev]");
 const newsNext = document.querySelector("[data-news-next]");
-const newsStatus = document.querySelector("[data-news-status]");
 const newsLightbox = document.querySelector("[data-news-lightbox]");
 const newsLightboxImage = document.querySelector("[data-news-lightbox-image]");
 const newsLightboxTitle = document.querySelector("[data-news-lightbox-title]");
@@ -543,6 +661,7 @@ const newsLightboxOpen = document.querySelector("[data-news-lightbox-open]");
 const newsLightboxClose = document.querySelector("[data-news-lightbox-close]");
 const newsLightboxPrev = document.querySelector("[data-news-lightbox-prev]");
 const newsLightboxNext = document.querySelector("[data-news-lightbox-next]");
+const newsLightboxFigure = document.querySelector(".news-lightbox-figure");
 const newsOpeners = Array.from(document.querySelectorAll("[data-news-open]"));
 const audioCards = Array.from(document.querySelectorAll("[data-audio-card]"));
 const revealTargets = Array.from(
@@ -563,23 +682,33 @@ const revealTargets = Array.from(
     ".home-product-process-visual",
     ".home-product-distinction",
     ".home-product-definition-actions a",
+    ".home-istib-feature-copy-column",
+    ".home-istib-feature-media-stack",
+    ".home-quick-link-card",
     ".home-firms-block > *",
     ".home-partner-heading > *",
     ".home-partner-card",
     ".home-news-heading > *",
     ".home-news-controls",
+    ".home-news-rail",
     ".article-index-head > *",
     ".article-button",
+    ".archive-news-head > *",
+    ".archive-news-card",
     ".media-coverage-head > *",
     ".media-coverage-column h2",
     ".media-mention-card",
-    ".books-head > *",
+    ".books-main .books-head > *",
     ".book-card",
+    ".library-main .library-content-section",
+    ".library-main .library-section-heading",
+    ".library-main .library-media-card",
+    ".library-main .library-book-card",
+    ".library-main .library-articles-list a",
     ".documentary-card",
     ".press-kit-heading > *",
     ".press-kit-section-title > *",
     ".press-kit-logo",
-    ".press-kit-brochure-action",
     ".press-kit-bulletin",
     ".press-kit-gallery-item",
     ".topline > *",
@@ -598,6 +727,23 @@ const revealTargets = Array.from(
     ".history-context-card",
     ".history-archive-heading > *",
     ".history-archive-item",
+    ".istib-hero-copy > *",
+    ".istib-hero-media",
+    ".istib-identity-card",
+    ".istib-story-copy > *",
+    ".istib-fact-grid",
+    ".istib-visual-card",
+    ".product-intro-section h1",
+    ".product-intro-copy",
+    ".product-intro-media",
+    ".geographic-intro-copy > *",
+    ".geographic-reference-publications-section .geographic-publication-card",
+    ".geographic-explainer-heading > *",
+    ".geographic-explainer-lead > *",
+    ".geographic-explainer-grid article",
+    ".geographic-publications-section .geographic-publication-card",
+    ".geographic-audit-documents-section .geographic-documents-heading > *",
+    ".geographic-audit-documents-section .geographic-document-card",
     ".section-heading > *",
     ".content-layout > *",
     ".page-card",
@@ -607,12 +753,14 @@ const revealTargets = Array.from(
     ".standard-grid article",
     ".document-grid a",
     ".firms-layout > *",
+    ".firms-directory-card-reveal",
     ".press-layout > *",
     ".press-list article",
     ".partner-list span",
+    ".contact-page-intro",
+    ".contact-map-card",
     ".contact-info-card",
     ".contact-page-form",
-    ".contact-info-item",
     ".contact-layout > *",
   ].join(","),
   )),
@@ -761,14 +909,71 @@ if (nav) {
   });
 }
 
+const closeFormSuccessModal = () => {
+  if (!formSuccessModal) return;
+
+  formSuccessModal.classList.remove("open");
+  formSuccessModal.setAttribute("aria-hidden", "true");
+};
+
+const openFormSuccessModal = () => {
+  if (!formSuccessModal) return;
+
+  formSuccessModal.classList.add("open");
+  formSuccessModal.setAttribute("aria-hidden", "false");
+  formSuccessModal.querySelector("[data-form-success-close]")?.focus();
+};
+
 if (contactForm) {
+  const contactFormError = contactForm.querySelector("[data-contact-form-error]");
+  const requiredContactFields = [...contactForm.querySelectorAll("[required]")];
+
+  const clearContactFormError = () => {
+    if (contactFormError) contactFormError.textContent = "";
+    requiredContactFields.forEach((field) => field.removeAttribute("aria-invalid"));
+  };
+
+  requiredContactFields.forEach((field) => {
+    field.addEventListener("input", clearContactFormError);
+    field.addEventListener("change", clearContactFormError);
+  });
+
   contactForm.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    const invalidField = requiredContactFields.find((field) => !field.checkValidity());
+
+    if (invalidField) {
+      const message = invalidField.validity.typeMismatch
+        ? "Lütfen geçerli bir e-posta adresi girin."
+        : "Lütfen zorunlu alanları doldurun.";
+
+      invalidField.setAttribute("aria-invalid", "true");
+      if (contactFormError) contactFormError.textContent = message;
+      invalidField.focus({ preventScroll: true });
+      invalidField.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    clearContactFormError();
     contactForm.reset();
-    formStatus.textContent =
-      "Bilgi talebiniz alındı. Başvuru süreci için İSTİB tarafından dönüş yapılacaktır.";
+    openFormSuccessModal();
   });
 }
+
+formSuccessCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeFormSuccessModal);
+});
+
+formSuccessModal?.addEventListener("click", (event) => {
+  if (event.target === formSuccessModal) closeFormSuccessModal();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && formSuccessModal?.classList.contains("open")) {
+    closeFormSuccessModal();
+  }
+});
 
 const closeVideoModal = () => {
   if (!videoModal || !videoFrame) {
@@ -787,10 +992,24 @@ const openVideoModal = (event) => {
   }
 
   event.preventDefault();
+  const videoSource =
+    event.currentTarget.dataset.videoSrc ||
+    "https://www.youtube.com/watch?v=ir_lIpUvCTo";
+  const videoUrl = new URL(videoSource, window.location.href);
+  const videoId = videoUrl.searchParams.get("v");
+  const videoStart = videoUrl.searchParams.get("start") || videoUrl.searchParams.get("t");
+  const startSeconds = Number.parseInt(videoStart, 10);
+  const startParameter = Number.isFinite(startSeconds) && startSeconds > 0
+    ? `&start=${startSeconds}`
+    : "";
+
   videoFrame.setAttribute(
     "src",
-    "https://www.youtube.com/embed/ir_lIpUvCTo?autoplay=1&rel=0",
+    videoId
+      ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0${startParameter}`
+      : videoSource,
   );
+  videoYouTubeLink?.setAttribute("href", videoSource);
   videoModal.classList.add("open");
   videoModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -816,6 +1035,51 @@ if (videoModal) {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && videoModal?.classList.contains("open")) {
     closeVideoModal();
+  }
+});
+
+const closePdfModal = () => {
+  if (!pdfModal || !pdfFrame) {
+    return;
+  }
+
+  pdfModal.classList.remove("open");
+  pdfModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  pdfFrame.removeAttribute("src");
+};
+
+const openPdfModal = (event) => {
+  if (!pdfModal || !pdfFrame) {
+    return;
+  }
+
+  event.preventDefault();
+  const pdfSource = event.currentTarget.dataset.pdfSrc || event.currentTarget.href;
+  pdfFrame.setAttribute("src", `${pdfSource}#view=FitH&toolbar=1&navpanes=0`);
+  pdfDownloadLink?.setAttribute("href", pdfSource);
+  pdfSaveLink?.setAttribute("href", pdfSource);
+  pdfModal.classList.add("open");
+  pdfModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  pdfClose?.focus();
+};
+
+pdfOpeners.forEach((opener) => {
+  opener.addEventListener("click", openPdfModal);
+});
+
+pdfClose?.addEventListener("click", closePdfModal);
+
+pdfModal?.addEventListener("click", (event) => {
+  if (event.target === pdfModal) {
+    closePdfModal();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && pdfModal?.classList.contains("open")) {
+    closePdfModal();
   }
 });
 
@@ -895,6 +1159,7 @@ const closePressLogoModal = () => {
   document.body.classList.remove("modal-open");
   pressLogoModalImage.removeAttribute("src");
   pressLogoModalImage.alt = "";
+  pressLogoDownload?.setAttribute("href", "#");
   activePressLogoOpener?.focus();
   activePressLogoOpener = null;
 };
@@ -912,8 +1177,13 @@ const openPressLogoModal = (event) => {
   }
 
   activePressLogoOpener = opener;
-  pressLogoModalImage.src = logo.currentSrc || logo.src;
+  const logoUrl = logo.currentSrc || logo.src;
+  const logoName = new URL(logoUrl, window.location.href).pathname.split("/").pop();
+
+  pressLogoModalImage.src = logoUrl;
   pressLogoModalImage.alt = logo.alt;
+  pressLogoDownload?.setAttribute("href", logoUrl);
+  pressLogoDownload?.setAttribute("download", logoName || "eminonu-balik-ekmek-logo.webp");
   pressLogoModal.classList.add("open");
   pressLogoModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -939,6 +1209,28 @@ document.addEventListener("keydown", (event) => {
 });
 
 let activePressPhotoOpener = null;
+let activePressPhotoIndex = -1;
+
+const showPressPhoto = (index) => {
+  if (!pressPhotoModalImage || !pressPhotoDownload || !pressPhotoOpeners.length) {
+    return;
+  }
+
+  activePressPhotoIndex = (index + pressPhotoOpeners.length) % pressPhotoOpeners.length;
+  const opener = pressPhotoOpeners[activePressPhotoIndex];
+  const photo = opener.querySelector("img");
+
+  if (!photo) return;
+
+  const photoUrl = opener.href || photo.currentSrc || photo.src;
+  const photoName = new URL(photoUrl, window.location.href).pathname.split("/").pop();
+
+  activePressPhotoOpener = opener;
+  pressPhotoModalImage.src = photoUrl;
+  pressPhotoModalImage.alt = photo.alt;
+  pressPhotoDownload.href = photoUrl;
+  pressPhotoDownload.setAttribute("download", photoName || "eminonu-balik-ekmek-fotograf.webp");
+};
 
 const closePressPhotoModal = () => {
   if (!pressPhotoModal || !pressPhotoModalImage || !pressPhotoDownload) {
@@ -953,6 +1245,7 @@ const closePressPhotoModal = () => {
   pressPhotoDownload.setAttribute("href", "#");
   activePressPhotoOpener?.focus();
   activePressPhotoOpener = null;
+  activePressPhotoIndex = -1;
 };
 
 const openPressPhotoModal = (event) => {
@@ -963,20 +1256,7 @@ const openPressPhotoModal = (event) => {
   event.preventDefault();
 
   const opener = event.currentTarget;
-  const photo = opener.querySelector("img");
-
-  if (!photo) {
-    return;
-  }
-
-  const photoUrl = opener.href || photo.currentSrc || photo.src;
-  const photoName = new URL(photoUrl, window.location.href).pathname.split("/").pop();
-
-  activePressPhotoOpener = opener;
-  pressPhotoModalImage.src = photoUrl;
-  pressPhotoModalImage.alt = photo.alt;
-  pressPhotoDownload.href = photoUrl;
-  pressPhotoDownload.setAttribute("download", photoName || "eminonu-balik-ekmek-fotograf.webp");
+  showPressPhoto(Array.from(pressPhotoOpeners).indexOf(opener));
   pressPhotoModal.classList.add("open");
   pressPhotoModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -988,6 +1268,8 @@ pressPhotoOpeners.forEach((opener) => {
 });
 
 pressPhotoClose?.addEventListener("click", closePressPhotoModal);
+pressPhotoPrevious?.addEventListener("click", () => showPressPhoto(activePressPhotoIndex - 1));
+pressPhotoNext?.addEventListener("click", () => showPressPhoto(activePressPhotoIndex + 1));
 
 pressPhotoModal?.addEventListener("click", (event) => {
   if (event.target === pressPhotoModal) {
@@ -998,6 +1280,14 @@ pressPhotoModal?.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && pressPhotoModal?.classList.contains("open")) {
     closePressPhotoModal();
+  }
+
+  if (event.key === "ArrowLeft" && pressPhotoModal?.classList.contains("open")) {
+    showPressPhoto(activePressPhotoIndex - 1);
+  }
+
+  if (event.key === "ArrowRight" && pressPhotoModal?.classList.contains("open")) {
+    showPressPhoto(activePressPhotoIndex + 1);
   }
 });
 
@@ -1152,8 +1442,21 @@ const setupHeroCarousel = () => {
     restartTimer();
   };
 
-  heroPrev?.addEventListener("click", () => goToSlide(currentSlide - 1));
-  heroNext?.addEventListener("click", () => goToSlide(currentSlide + 1));
+  const getVisibleSlideIndex = () => {
+    const visibleIndex = Array.from(heroSlides).findIndex((slide) =>
+      slide.classList.contains("is-active"),
+    );
+
+    return visibleIndex < 0 ? currentSlide : visibleIndex;
+  };
+
+  const handleArrowNavigation = (direction) => (event) => {
+    event.preventDefault();
+    goToSlide(getVisibleSlideIndex() + direction);
+  };
+
+  heroPrev?.addEventListener("click", handleArrowNavigation(-1));
+  heroNext?.addEventListener("click", handleArrowNavigation(1));
 
   heroDots.forEach((dot, index) => {
     dot.addEventListener("click", () => goToSlide(index));
@@ -1259,6 +1562,16 @@ document.addEventListener("keydown", (event) => {
 let activeNewsIndex = 0;
 let activeNewsOpener = null;
 
+const resetNewsLightboxZoom = () => {
+  if (!newsLightboxImage) {
+    return;
+  }
+
+  newsLightboxImage.classList.remove("is-zoomed");
+  newsLightboxImage.style.removeProperty("--news-zoom-origin-x");
+  newsLightboxImage.style.removeProperty("--news-zoom-origin-y");
+};
+
 const getNewsCardOffset = (card) => {
   if (!newsTrack || !card) {
     return 0;
@@ -1267,6 +1580,18 @@ const getNewsCardOffset = (card) => {
   const trackRect = newsTrack.getBoundingClientRect();
   const cardRect = card.getBoundingClientRect();
   return newsTrack.scrollLeft + cardRect.left - trackRect.left;
+};
+
+const refreshNewsCards = () => {
+  if (!newsTrack) {
+    newsCards = [];
+    return;
+  }
+
+  newsCards = Array.from(newsTrack.querySelectorAll("[data-news-card]"));
+  newsCards.forEach((card, index) => {
+    card.setAttribute("aria-label", `${index + 1} / ${newsCards.length}`);
+  });
 };
 
 const getNewsGap = () => {
@@ -1318,22 +1643,12 @@ const updateNewsCarouselState = () => {
     return;
   }
 
-  const visibleCount = getVisibleNewsCount();
-  const maxStartIndex = Math.max(0, newsCards.length - visibleCount);
-  const startIndex = Math.min(getNearestNewsIndex(), maxStartIndex);
-  const endIndex = Math.min(newsCards.length, startIndex + visibleCount);
-  const maxScrollLeft = Math.max(0, newsTrack.scrollWidth - newsTrack.clientWidth);
-
-  if (newsStatus) {
-    newsStatus.textContent = `${startIndex + 1}–${endIndex} / ${newsCards.length}`;
-  }
-
   if (newsPrev) {
-    newsPrev.disabled = newsTrack.scrollLeft <= 2;
+    newsPrev.disabled = false;
   }
 
   if (newsNext) {
-    newsNext.disabled = newsTrack.scrollLeft >= maxScrollLeft - 2;
+    newsNext.disabled = false;
   }
 };
 
@@ -1352,6 +1667,63 @@ const scrollToNews = (index) => {
   newsTrack.scrollTo({ left: targetLeft, behavior });
 };
 
+const setNewsScrollPosition = (left) => {
+  if (!newsTrack) {
+    return;
+  }
+
+  const previousBehavior = newsTrack.style.scrollBehavior;
+  newsTrack.style.scrollBehavior = "auto";
+  newsTrack.scrollLeft = left;
+  void newsTrack.offsetWidth;
+  newsTrack.style.scrollBehavior = previousBehavior;
+};
+
+const rotateNewsCards = (direction) => {
+  if (!newsTrack || newsCards.length < 2) {
+    return;
+  }
+
+  const cardStep = newsCards[0].getBoundingClientRect().width + getNewsGap();
+  const currentScrollLeft = newsTrack.scrollLeft;
+
+  if (direction > 0) {
+    newsTrack.append(newsCards[0]);
+    refreshNewsCards();
+    setNewsScrollPosition(Math.max(0, currentScrollLeft - cardStep));
+    return;
+  }
+
+  newsTrack.prepend(newsCards[newsCards.length - 1]);
+  refreshNewsCards();
+  const maxScrollLeft = Math.max(0, newsTrack.scrollWidth - newsTrack.clientWidth);
+  setNewsScrollPosition(Math.min(maxScrollLeft, currentScrollLeft + cardStep));
+};
+
+const scrollNewsBy = (direction) => {
+  if (!newsTrack || newsCards.length === 0) {
+    return;
+  }
+
+  const maxScrollLeft = Math.max(0, newsTrack.scrollWidth - newsTrack.clientWidth);
+  const atFirstNews = newsTrack.scrollLeft <= 2;
+  const atLastNews = newsTrack.scrollLeft >= maxScrollLeft - 2;
+
+  if (direction > 0 && atLastNews) {
+    rotateNewsCards(1);
+    scrollToNews(getNearestNewsIndex() + 1);
+    return;
+  }
+
+  if (direction < 0 && atFirstNews) {
+    rotateNewsCards(-1);
+    scrollToNews(getNearestNewsIndex() - 1);
+    return;
+  }
+
+  scrollToNews(getNearestNewsIndex() + direction);
+};
+
 const setupNewsCarousel = () => {
   if (!newsCarousel || !newsTrack || newsCards.length === 0) {
     return;
@@ -1365,17 +1737,55 @@ const setupNewsCarousel = () => {
   let entryMotionActive = false;
   let entryMotionFrame = 0;
   let entryObserver = null;
+  let entryMotionClones = [];
+
+  const settleEntryMotion = () => {
+    if (entryMotionClones.length === 0 || newsCards.length === 0) {
+      return;
+    }
+
+    entryMotionClones.forEach((card) => card.remove());
+    entryMotionClones = [];
+    const chronologicalNewsCards = [...newsCards].sort((first, second) => {
+      const firstDate = first.dataset.newsDate || "";
+      const secondDate = second.dataset.newsDate || "";
+
+      if (firstDate === "9999-12-31") {
+        return 1;
+      }
+
+      if (secondDate === "9999-12-31") {
+        return -1;
+      }
+
+      return firstDate.localeCompare(secondDate);
+    });
+    newsTrack.append(...chronologicalNewsCards);
+    refreshNewsCards();
+    setNewsScrollPosition(0);
+  };
 
   const finishEntryMotion = () => {
-    newsTrack.scrollLeft = 0;
+    entryMotionClones.forEach((card) => {
+      card.removeAttribute("aria-hidden");
+      card.removeAttribute("inert");
+    });
     entryMotionActive = false;
     entryMotionFrame = 0;
     newsTrack.classList.remove("is-entry-gliding");
     updateNewsCarouselState();
   };
 
-  const cancelEntryMotion = () => {
+  const cancelEntryMotion = (shouldSettle = true) => {
+    if (!shouldSettle && entryMotionActive) {
+      return;
+    }
+
     if (!entryMotionActive) {
+      if (shouldSettle && entryMotionClones.length > 0) {
+        settleEntryMotion();
+        updateNewsCarouselState();
+      }
       return;
     }
 
@@ -1387,12 +1797,16 @@ const setupNewsCarousel = () => {
     entryObserver?.disconnect();
     entryObserver = null;
     newsTrack.classList.remove("is-entry-gliding");
+    settleEntryMotion();
     updateNewsCarouselState();
   };
 
   const runEntryMotion = () => {
     const startOffset = newsTrack.scrollLeft;
-    const duration = 820;
+    const duration = 3000;
+    const maxScrollLeft = Math.max(0, newsTrack.scrollWidth - newsTrack.clientWidth);
+    const oldestNewsCard = newsCards.find((card) => card.dataset.newsDate === "1967-05-25") || newsCards[newsCards.length - 1];
+    const endOffset = Math.min(getNewsCardOffset(oldestNewsCard), maxScrollLeft);
     const startTime = window.performance.now();
 
     const animate = (currentTime) => {
@@ -1401,8 +1815,8 @@ const setupNewsCarousel = () => {
       }
 
       const progress = Math.min((currentTime - startTime) / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 4);
-      newsTrack.scrollLeft = startOffset * (1 - easedProgress);
+      const easedProgress = Math.sin((progress * Math.PI) / 2);
+      newsTrack.scrollLeft = startOffset + (endOffset - startOffset) * easedProgress;
 
       if (progress < 1) {
         entryMotionFrame = window.requestAnimationFrame(animate);
@@ -1426,12 +1840,38 @@ const setupNewsCarousel = () => {
 
     entryMotionActive = true;
     newsTrack.classList.add("is-entry-gliding");
-    newsTrack.scrollLeft = Math.min(64, maxScrollLeft);
+    entryMotionClones = ["1971-09-14", "1973-04-18"].map((date) => {
+      const sourceCard = newsCards.find((card) => card.dataset.newsDate === date);
+      if (!sourceCard) {
+        return null;
+      }
+
+      const clone = sourceCard.cloneNode(true);
+      clone.removeAttribute("data-news-card");
+      clone.setAttribute("aria-hidden", "true");
+      clone.setAttribute("inert", "");
+      const sourceOpener = sourceCard.querySelector("[data-news-open]");
+      const cloneOpener = clone.querySelector("[data-news-open]");
+      cloneOpener?.addEventListener("click", (event) => {
+        event.preventDefault();
+        sourceOpener?.click();
+      });
+      return clone;
+    }).filter(Boolean);
+    newsTrack.append(...entryMotionClones);
+    const undatedNewsCard = newsCards.find((card) => card.dataset.newsDate === "9999-12-31");
+    if (undatedNewsCard) {
+      newsTrack.append(undatedNewsCard);
+    }
+    setNewsScrollPosition(0);
 
     entryObserver = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (!entry?.isIntersecting || entry.intersectionRatio < 0.18) {
+        // Intro motion should begin only once the news cards themselves are
+        // comfortably in view. This prevents the animation from completing
+        // while the visitor is still browsing the sections above.
+        if (!entry?.isIntersecting || entry.intersectionRatio < 0.5) {
           return;
         }
 
@@ -1440,32 +1880,46 @@ const setupNewsCarousel = () => {
         runEntryMotion();
       },
       {
-        threshold: [0.18],
-        rootMargin: "0px 0px -8% 0px",
+        threshold: [0.5],
+        rootMargin: "0px 0px -4% 0px",
       },
     );
-    entryObserver.observe(newsCarousel);
+    entryObserver.observe(newsTrack);
   };
 
   newsPrev?.addEventListener("click", () => {
+    if (entryMotionActive) {
+      return;
+    }
+
     cancelEntryMotion();
-    scrollToNews(getNearestNewsIndex() - 1);
+    scrollNewsBy(-1);
   });
 
   newsNext?.addEventListener("click", () => {
+    if (entryMotionActive) {
+      return;
+    }
+
     cancelEntryMotion();
-    scrollToNews(getNearestNewsIndex() + 1);
+    scrollNewsBy(1);
   });
 
   newsTrack.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") {
       event.preventDefault();
+      if (entryMotionActive) {
+        return;
+      }
       cancelEntryMotion();
-      scrollToNews(getNearestNewsIndex() - 1);
+      scrollNewsBy(-1);
     } else if (event.key === "ArrowRight") {
       event.preventDefault();
+      if (entryMotionActive) {
+        return;
+      }
       cancelEntryMotion();
-      scrollToNews(getNearestNewsIndex() + 1);
+      scrollNewsBy(1);
     } else if (event.key === "Home") {
       event.preventDefault();
       cancelEntryMotion();
@@ -1480,9 +1934,9 @@ const setupNewsCarousel = () => {
     }
   });
 
-  newsTrack.addEventListener("pointerdown", cancelEntryMotion, { passive: true });
-  newsTrack.addEventListener("touchstart", cancelEntryMotion, { passive: true });
-  newsTrack.addEventListener("wheel", cancelEntryMotion, { passive: true });
+  newsTrack.addEventListener("pointerdown", () => cancelEntryMotion(false), { passive: true });
+  newsTrack.addEventListener("touchstart", () => cancelEntryMotion(false), { passive: true });
+  newsTrack.addEventListener("wheel", () => cancelEntryMotion(false), { passive: true });
 
   newsTrack.addEventListener(
     "scroll",
@@ -1542,6 +1996,7 @@ const showNewsLightboxItem = (index) => {
   const title = opener.dataset.newsTitle || "Haber kupürü";
   const meta = opener.dataset.newsMeta || "";
 
+  resetNewsLightboxZoom();
   newsLightboxImage.src = source;
   newsLightboxImage.alt = `${title} haber kupürü`;
   newsLightboxTitle.textContent = title;
@@ -1560,7 +2015,27 @@ const openNewsLightbox = (event) => {
   newsLightbox.classList.add("open");
   newsLightbox.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
-  window.requestAnimationFrame(() => newsLightboxClose?.focus());
+
+  const sourceImage = activeNewsOpener.querySelector(".home-news-media-image");
+  const sourceBounds = sourceImage?.getBoundingClientRect();
+  const figureBounds = newsLightboxFigure?.getBoundingClientRect();
+  const originX = Number.isFinite(event.clientX) && event.clientX > 0
+    ? event.clientX
+    : (sourceBounds?.left ?? window.innerWidth / 2) + (sourceBounds?.width ?? 0) / 2;
+  const originY = Number.isFinite(event.clientY) && event.clientY > 0
+    ? event.clientY
+    : (sourceBounds?.top ?? window.innerHeight / 2) + (sourceBounds?.height ?? 0) / 2;
+
+  newsLightbox.style.setProperty("--news-open-origin-x", `${originX - (figureBounds?.left ?? 0)}px`);
+  newsLightbox.style.setProperty("--news-open-origin-y", `${originY - (figureBounds?.top ?? 0)}px`);
+  newsLightbox.classList.add("is-opening");
+
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      newsLightbox.classList.remove("is-opening");
+      newsLightboxClose?.focus();
+    });
+  });
 };
 
 const closeNewsLightbox = () => {
@@ -1568,11 +2043,14 @@ const closeNewsLightbox = () => {
     return;
   }
 
-  newsLightbox.classList.remove("open");
+  newsLightbox.classList.remove("open", "is-opening");
   newsLightbox.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
+  resetNewsLightboxZoom();
   newsLightboxImage.removeAttribute("src");
   newsLightboxImage.alt = "";
+  newsLightbox.style.removeProperty("--news-open-origin-x");
+  newsLightbox.style.removeProperty("--news-open-origin-y");
   activeNewsOpener?.focus();
   activeNewsOpener = null;
 };
@@ -1582,10 +2060,32 @@ newsLightboxClose?.addEventListener("click", closeNewsLightbox);
 newsLightboxPrev?.addEventListener("click", () => showNewsLightboxItem(activeNewsIndex - 1));
 newsLightboxNext?.addEventListener("click", () => showNewsLightboxItem(activeNewsIndex + 1));
 
-newsLightbox?.addEventListener("click", (event) => {
-  if (event.target === newsLightbox || event.target === newsLightbox.firstElementChild) {
-    closeNewsLightbox();
+newsLightboxImage?.addEventListener("click", (event) => {
+  const imageBounds = newsLightboxImage.getBoundingClientRect();
+  const originX = ((event.clientX - imageBounds.left) / imageBounds.width) * 100;
+  const originY = ((event.clientY - imageBounds.top) / imageBounds.height) * 100;
+
+  if (newsLightboxImage.classList.contains("is-zoomed")) {
+    resetNewsLightboxZoom();
+    return;
   }
+
+  newsLightboxImage.style.setProperty("--news-zoom-origin-x", `${originX}%`);
+  newsLightboxImage.style.setProperty("--news-zoom-origin-y", `${originY}%`);
+  newsLightboxImage.classList.add("is-zoomed");
+});
+
+newsLightbox?.addEventListener("click", (event) => {
+  if (
+    event.target.closest("[data-news-lightbox-image]") ||
+    event.target.closest(".news-lightbox-figure figcaption") ||
+    event.target.closest(".news-lightbox-toolbar") ||
+    event.target.closest(".news-lightbox-nav")
+  ) {
+    return;
+  }
+
+  closeNewsLightbox();
 });
 
 document.addEventListener("keydown", (event) => {
@@ -1642,7 +2142,20 @@ const setupRevealAnimations = () => {
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   ).matches;
-  const targets = Array.from(revealTargets);
+  const targets = Array.from(revealTargets).sort((first, second) => {
+    const firstIsDirectoryCard = first.matches(
+      ".firms-directory-card-reveal",
+    );
+    const secondIsDirectoryCard = second.matches(
+      ".firms-directory-card-reveal",
+    );
+
+    if (!firstIsDirectoryCard || !secondIsDirectoryCard) {
+      return 0;
+    }
+
+    return first.classList.contains("firms-map-card") ? -1 : 1;
+  });
 
   if (targets.length === 0) {
     return;
@@ -1651,6 +2164,8 @@ const setupRevealAnimations = () => {
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
   const animatedTargets = [];
   const deferredScrollTargets = [];
+  const earlyMobilePressLogoTargets = [];
+  let libraryInitialRevealIndex = 0;
   const deferredRevealSelector = [
     ".home-authority-heading > *",
     ".home-authority-media",
@@ -1663,25 +2178,100 @@ const setupRevealAnimations = () => {
     ".home-product-process-visual",
     ".home-product-distinction",
     ".home-product-definition-actions a",
+    ".home-istib-feature-copy-column",
+    ".home-istib-feature-media-stack",
+    ".home-quick-link-card",
+    ".home-firms-application-section .firms-section-heading",
+    ".home-firms-application-section .notice-card-application",
+    ".home-partner-card",
     ".home-news-heading > *",
     ".home-news-controls",
+    ".home-news-rail",
     ".resource-card",
-    ".documentary-card",
+    ".press-kit-section-title > *",
+    ".press-kit-logo",
+    ".press-kit-bulletin",
+    ".press-kit-gallery-item",
     ".history-hero-copy > *",
     ".history-hero-media",
     ".history-context-card",
     ".history-archive-heading > *",
     ".history-archive-item",
+    ".istib-identity-card",
+    ".istib-story-copy > *",
+    ".istib-fact-grid",
+    ".istib-visual-card",
+    ".geographic-reference-publications-section .geographic-publication-card",
+    ".geographic-explainer-heading > *",
+    ".geographic-explainer-lead > *",
+    ".geographic-explainer-grid article",
+    ".geographic-publications-section .geographic-publication-card",
+    ".geographic-audit-documents-section .geographic-documents-heading > *",
+    ".geographic-audit-documents-section .geographic-document-card",
+    ".geographic-partner-card",
+    ".firms-directory-layout > .firms-table-card",
+    ".firms-directory-layout > .firms-map-card",
+    ".contact-map-card",
+    ".library-main .library-content-section",
+    ".library-main .library-media-card",
+    ".library-main .library-book-card",
+    ".library-main .library-articles-list a",
   ].join(",");
 
   targets.forEach((element) => {
     const rect = element.getBoundingClientRect();
     const isDeferredRevealTarget = element.matches(deferredRevealSelector);
+    const isImmediateMapReveal = element.matches(
+      ".firms-directory-layout > .firms-map-card",
+    );
+    const isInitialFirmsDirectoryReveal =
+      document.querySelector(".firms-directory-layout") &&
+      element.matches(".firms-directory-card-reveal");
+    const isMobileFirmsDirectoryReveal =
+      window.matchMedia("(max-width: 760px)").matches &&
+      element.matches(
+        ".firms-directory-layout > .firms-map-card, .firms-directory-layout > .firms-table-card",
+      );
+    const isEarlyMobilePressLogo =
+      window.matchMedia("(max-width: 760px)").matches &&
+      element.matches(".press-kit-logo");
+    const isLibraryInitialReveal =
+      document.querySelector(".library-main") &&
+      element.matches(
+        ".library-main .library-content-section, .library-main .library-section-heading, .library-main .library-media-card, .library-main .library-book-card, .library-main .library-articles-list a",
+      );
+    const isMediaCardsCssOpening =
+      document.querySelector(".documentaries-main, .series-films-main, .books-main, .archive-news-main") &&
+      element.matches(
+        ".documentaries-main .books-head > *, .documentaries-main .documentary-card, .series-films-main .books-head > *, .series-films-main .documentary-card, .books-main:not(.documentaries-main):not(.series-films-main) .books-head > *, .books-main .book-card, .archive-news-main .archive-news-head > *, .archive-news-main .archive-news-card",
+      );
+    if (isMediaCardsCssOpening) {
+      return;
+    }
+    const isHistoryArchiveInitialReveal =
+      document.querySelector(".history-page-main") &&
+      element.matches(".history-archive-heading > *, .history-archive-item");
+    const isHomeCertificateInitialReveal =
+      document.querySelector(".home-istib-feature-section") &&
+      element.matches(".home-product-definition-lead");
+    const isPressBulletinInitialReveal =
+      document.querySelector(".press-kit-main") &&
+      element.matches(".press-kit-bulletin");
+    const isPressBulletinHeadingInitialReveal =
+      document.querySelector(".press-kit-main") &&
+      element.matches("#press-kit-bulletins");
     const revealStartRatio = isDeferredRevealTarget ? 0.72 : 0.92;
     const shouldAnimate =
       !prefersReducedMotion &&
-      rect.top < viewportHeight * revealStartRatio &&
-      rect.bottom > 0;
+      (isImmediateMapReveal ||
+        isInitialFirmsDirectoryReveal ||
+        isMobileFirmsDirectoryReveal ||
+        isLibraryInitialReveal ||
+        isHistoryArchiveInitialReveal ||
+        isHomeCertificateInitialReveal ||
+        isPressBulletinInitialReveal ||
+        isPressBulletinHeadingInitialReveal ||
+        (rect.top < viewportHeight * revealStartRatio && rect.bottom > 0));
     const shouldDeferUntilVisible =
       !prefersReducedMotion &&
       isDeferredRevealTarget &&
@@ -1690,13 +2280,21 @@ const setupRevealAnimations = () => {
     element.classList.add("reveal-item");
 
     if (shouldAnimate) {
-      element.style.setProperty("--reveal-delay", `${Math.min(animatedTargets.length * 70, 280)}ms`);
+      const delay = isLibraryInitialReveal
+        ? Math.min(libraryInitialRevealIndex++ * 75, 1050)
+        : isMobileFirmsDirectoryReveal
+          ? 0
+          : Math.min(animatedTargets.length * 70, 280);
+      element.style.setProperty("--reveal-delay", `${delay}ms`);
       animatedTargets.push(element);
       return;
     }
 
     if (shouldDeferUntilVisible) {
-      deferredScrollTargets.push(element);
+      (isEarlyMobilePressLogo
+        ? earlyMobilePressLogoTargets
+        : deferredScrollTargets
+      ).push(element);
       return;
     }
 
@@ -1711,19 +2309,26 @@ const setupRevealAnimations = () => {
     });
   });
 
-  if (deferredScrollTargets.length === 0) {
+  if (
+    deferredScrollTargets.length === 0 &&
+    earlyMobilePressLogoTargets.length === 0
+  ) {
     return;
   }
 
   if (!("IntersectionObserver" in window)) {
-    deferredScrollTargets.forEach((element) => {
+    [...deferredScrollTargets, ...earlyMobilePressLogoTargets].forEach((element) => {
       element.classList.add("reveal-visible");
     });
     return;
   }
 
-  const deferredRevealObserver = new IntersectionObserver(
-    (entries) => {
+  const observeDeferredTargets = (targetsToObserve, rootMargin) => {
+    if (targetsToObserve.length === 0) {
+      return;
+    }
+
+    const deferredRevealObserver = new IntersectionObserver((entries) => {
       let visibleIndex = 0;
 
       entries.forEach((entry) => {
@@ -1739,21 +2344,160 @@ const setupRevealAnimations = () => {
         deferredRevealObserver.unobserve(entry.target);
         visibleIndex += 1;
       });
-    },
-    {
-      rootMargin: "0px 0px -28% 0px",
+    }, {
+      rootMargin,
       threshold: 0.12,
+    });
+
+    targetsToObserve.forEach((element) => {
+      deferredRevealObserver.observe(element);
+    });
+  };
+
+  observeDeferredTargets(deferredScrollTargets, "0px 0px -28% 0px");
+  observeDeferredTargets(earlyMobilePressLogoTargets, "0px 0px -6% 0px");
+};
+
+const setupCountUpAnimations = () => {
+  const counters = Array.from(document.querySelectorAll("[data-countup-end]"));
+
+  if (counters.length === 0) {
+    return;
+  }
+
+  const renderFinalValues = () => {
+    counters.forEach((counter) => {
+      const endValue = Number(counter.dataset.countupEnd);
+      const suffix = counter.dataset.countupSuffix || "";
+      counter.textContent = `${endValue.toLocaleString("tr-TR")}${suffix}`;
+    });
+  };
+
+  const renderInitialValues = () => {
+    counters.forEach((counter) => {
+      const suffix = counter.dataset.countupSuffix || "";
+      counter.textContent = `0${suffix}`;
+    });
+  };
+
+  const startCounters = () => {
+    if (counters[0]?.dataset.countupStarted === "true") {
+      return;
+    }
+
+    counters.forEach((counter) => {
+      counter.dataset.countupStarted = "true";
+      const endValue = Number(counter.dataset.countupEnd);
+      const suffix = counter.dataset.countupSuffix || "";
+      const CountUp = window.countUp?.CountUp || window.CountUp;
+
+      if (typeof CountUp !== "function" || !Number.isFinite(endValue)) {
+        counter.textContent = `${endValue.toLocaleString("tr-TR")}${suffix}`;
+        return;
+      }
+
+      const countUp = new CountUp(counter, endValue, {
+        duration: 2.2,
+        decimalPlaces: 0,
+        separator: ".",
+        suffix,
+      });
+
+      if (countUp.error) {
+        counter.textContent = `${endValue.toLocaleString("tr-TR")}${suffix}`;
+        return;
+      }
+
+      countUp.start();
+    });
+  };
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    renderFinalValues();
+    return;
+  }
+
+  const counterSection = counters[0].closest(".istib-story-section");
+  const factGrid = counters[0].closest(".istib-fact-grid");
+  const startAfterCardEntrance = () => {
+    if (!factGrid || !document.documentElement.classList.contains("reveal-enabled")) {
+      startCounters();
+      return;
+    }
+
+    const begin = () => window.setTimeout(startCounters, 120);
+
+    if (factGrid.classList.contains("reveal-visible")) {
+      window.setTimeout(begin, 560);
+      return;
+    }
+
+    const revealWatcher = new MutationObserver(() => {
+      if (!factGrid.classList.contains("reveal-visible")) {
+        return;
+      }
+
+      revealWatcher.disconnect();
+      window.setTimeout(begin, 560);
+    });
+
+    revealWatcher.observe(factGrid, { attributes: true, attributeFilter: ["class"] });
+  };
+
+  if (!counterSection || !("IntersectionObserver" in window)) {
+    startAfterCardEntrance();
+    return;
+  }
+
+  renderInitialValues();
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) {
+        return;
+      }
+
+      startAfterCardEntrance();
+      observer.disconnect();
     },
+    { threshold: 0.3 },
   );
 
-  deferredScrollTargets.forEach((element) => {
-    deferredRevealObserver.observe(element);
-  });
+  observer.observe(counterSection);
 };
 
 if (year) {
   year.textContent = new Date().getFullYear();
 }
+
+const normaliseNavigationPath = (path) => {
+  const trimmedPath = path.replace(/\/+$/, "");
+
+  return trimmedPath === "" ? "/index.html" : trimmedPath;
+};
+
+const markCurrentNavigationItem = () => {
+  const currentPath = normaliseNavigationPath(window.location.pathname);
+
+  primaryNavLinks.forEach((link) => {
+    const linkUrl = new URL(link.href, window.location.href);
+
+    if (linkUrl.origin !== window.location.origin) {
+      return;
+    }
+
+    const isCurrentPage = normaliseNavigationPath(linkUrl.pathname) === currentPath;
+    if (isCurrentPage) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+    link.closest(".nav-item")?.classList.toggle("is-current", isCurrentPage);
+  });
+};
+
+markCurrentNavigationItem();
+
 if (!hasSolidHeader) {
   syncHeader();
   window.addEventListener("scroll", scheduleHeaderSync, { passive: true });
@@ -1762,6 +2506,12 @@ const startHomepageExperience = () => {
   setupHeroCarousel();
   setupNewsCarousel();
   setupRevealAnimations();
+  setupCountUpAnimations();
+
+  const heroStamp = document.querySelector(".hero-stamp-link");
+  if (heroStamp && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.setTimeout(() => heroStamp.classList.add("is-attention-ready"), 1100);
+  }
 };
 
 setupSiteIntro(startHomepageExperience);

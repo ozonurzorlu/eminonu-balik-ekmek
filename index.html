@@ -8,10 +8,13 @@
       content="Eminönü Balık Ekmek coğrafi işaret bilgilendirme ve ürün tanıtım sitesi."
     />
     <title>Eminönü Balık Ekmeği</title>
-   <link rel="icon" type="image/png" href="assets/eminonu-balik-ekmek-logo-transparent-clean.png" />
+   <link rel="icon" type="image/png" href="assets/eminönü_balik_ekmek_logo.png" />
     <script src="reload-bootstrap.js?v=20260722-reload-top-first"></script>
     <link rel="preload" as="image" href="assets/hero-carousel-balik-ekmek-01.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/hero-carousel-mobile-01-sandwich.png" media="(max-width: 620px)" fetchpriority="high" />
     <link rel="preload" as="image" href="assets/history-hero-boat-culture.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/intro-eminonu-balik-ekmek-sunny-tursu-cups.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/intro-eminonu-balik-ekmek-mobile-waterfront.png" media="(max-width: 620px)" fetchpriority="high" />
     <link rel="preload" as="image" href="assets/eminonu-balik-ekmek-logo-loader.webp" fetchpriority="high" />
     <script>
       (() => {
@@ -77,18 +80,21 @@
         overscroll-behavior: none;
       }
     </style>
-    <link rel="stylesheet" href="style.css?v=20260723-registration-card-clean" />
+    <link rel="stylesheet" href="style.css?v=20260730-mobile-hero-content-higher" />
   </head>
   <body>
     <div class="site-intro" data-site-intro>
-      <img
-        class="site-intro-background"
-        src="assets/history-hero-boat-culture.webp"
-        alt=""
-        aria-hidden="true"
-        decoding="async"
-        fetchpriority="high"
-      />
+      <picture>
+        <source media="(max-width: 620px)" srcset="assets/intro-eminonu-balik-ekmek-mobile-waterfront.png" />
+        <img
+          class="site-intro-background"
+          src="assets/intro-eminonu-balik-ekmek-sunny-tursu-cups.png"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
       <div class="site-intro-aura" aria-hidden="true"></div>
 
       <div class="site-intro-center" aria-hidden="true">
@@ -123,11 +129,12 @@
             Hakkımızda
           </button>
           <div class="submenu" aria-label="Hakkımızda alt menüsü">
-            <a href="eminonu-balik-ekmek.html">Eminönü Balık Ekmeği</a>
+            <a href="eminonu-balik-ekmegi.html">Eminönü Balık Ekmeği</a>
             <a href="istanbul-ticaret-borsasi.html">İstanbul Ticaret Borsası</a>
           </div>
         </div>
-        <a href="tarihce.html">Tarihçe</a>
+        <a href="cografi-isaret.html">Coğrafi Tescil</a>
+        <a href="kutuphane.html">Kütüphane</a>
         <a href="firmalar-ve-satis-noktalari.html">Balık Ekmek Satış Noktaları</a>
         <a href="basin-kiti.html">Basın Kiti</a>
         <a href="iletisim.html">İletişim</a>
@@ -144,36 +151,46 @@
     <main>
       <section class="hero hero-carousel" id="anasayfa" data-hero-carousel>
         <div class="hero-slide is-active" data-hero-slide>
-          <img
-            class="hero-image"
-            src="assets/hero-carousel-balik-ekmek-01.webp"
-            decoding="async"
-            fetchpriority="high"
-            alt="Eminönü sahilinde balık ekmek"
-          />
+          <picture>
+            <source media="(max-width: 620px)" srcset="assets/hero-carousel-mobile-01-sandwich.png" />
+            <img
+              class="hero-image"
+              src="assets/hero-carousel-balik-ekmek-01.webp"
+              decoding="async"
+              fetchpriority="high"
+              alt="Eminönü sahilinde balık ekmek"
+            />
+          </picture>
         </div>
         <div class="hero-slide" data-hero-slide>
-          <img
-            class="hero-image"
-            src="assets/hero-carousel-balik-ekmek-02.webp"
-            decoding="async"
-            loading="lazy"
-            fetchpriority="low"
-            alt="Coğrafi işaret belgesi temalı balık ekmek"
-          />
+          <picture>
+            <source media="(max-width: 620px)" srcset="assets/hero-carousel-mobile-02-boat.png" />
+            <img
+              class="hero-image"
+              src="assets/hero-carousel-balik-ekmek-02.webp"
+              decoding="async"
+              loading="lazy"
+              fetchpriority="low"
+              alt="Coğrafi işaret belgesi temalı balık ekmek"
+            />
+          </picture>
         </div>
         <div class="hero-slide" data-hero-slide>
-          <img
-            class="hero-image"
-            src="assets/hero-carousel-balik-ekmek-03-realistic-right.webp"
-            decoding="async"
-            loading="lazy"
-            fetchpriority="low"
-            alt="Gün batımında Eminönü Balık Ekmek"
-          />
+          <picture>
+            <source media="(max-width: 620px)" srcset="assets/hero-carousel-mobile-03-sunset.png" />
+            <img
+              class="hero-image"
+              src="assets/hero-carousel-balik-ekmek-03-realistic-right.webp"
+              decoding="async"
+              loading="lazy"
+              fetchpriority="low"
+              alt="Gün batımında Eminönü Balık Ekmek"
+            />
+          </picture>
         </div>
 
         <div class="hero-overlay"></div>
+        <a class="hero-product-hit-area" href="eminonu-balik-ekmegi.html" aria-label="Eminönü Balık Ekmeği hakkında daha fazla bilgi"></a>
 
         <button class="hero-arrow hero-arrow-prev" type="button" data-hero-prev aria-label="Önceki görsel">
           <i class="bi bi-chevron-left" aria-hidden="true"></i>
@@ -185,17 +202,17 @@
         <div class="hero-content">
           <div class="hero-title-row">
             <h1>
-              Eminönü Balık Ekmeği
-              <span class="hero-stamp" aria-label="Tescillendi">
+              <a class="hero-product-title-link" href="eminonu-balik-ekmegi.html" aria-label="Eminönü Balık Ekmeği hakkında daha fazla bilgi">
+                <span class="hero-title-line">Eminönü Balık</span>
+                <span class="hero-title-subline">
+                  <span>Ekmek</span>
+                </span>
+              </a>
+              <a class="hero-stamp hero-stamp-link" href="cografi-tescil-belgesi.html" aria-label="Coğrafi işaret tescil belgesini aç">
                 <img src="assets/tescillendi-stamp.png" alt="" aria-hidden="true" decoding="async" />
-              </span>
+              </a>
             </h1>
           </div>
-          <p class="hero-copy">
-            İstanbul'un kıyı kültüründe yer alan Eminönü Balık Ekmeği,
-            coğrafi işaret tesciliyle tanımlanan geleneksel ürün kimliğiyle İstanbul Ticaret Borsası tarafından 
-            koruma altına alındı.
-          </p>
         </div>
 
         <div class="hero-dots" aria-label="Hero görselleri">
@@ -205,35 +222,7 @@
         </div>
       </section>
 
-      <section class="registration-marquee" aria-label="Coğrafi işaret tescil duyurusu">
-        <p class="visually-hidden">
-          Eminönü Balık Ekmeği coğrafi işaretle tescillendi. İstanbul'un kıyı kültürü koruma altında.
-        </p>
-        <div class="registration-marquee-track" aria-hidden="true">
-          <div class="registration-marquee-group">
-            <span class="registration-marquee-name">Eminönü Balık Ekmeği Coğrafi İşaretle Tescillendi</span>
-            <span class="registration-marquee-badge">
-              <img src="assets/eminonu-balik-ekmek-logo-transparent-clean.png" alt="" decoding="async" />
-            </span>
-            <span class="registration-marquee-note">İstanbul'un Kıyı Kültürü Koruma Altında</span>
-            <span class="registration-marquee-badge">
-              <img src="assets/eminonu-balik-ekmek-logo-transparent-clean.png" alt="" decoding="async" />
-            </span>
-          </div>
-          <div class="registration-marquee-group">
-            <span class="registration-marquee-name">Eminönü Balık Ekmeği Coğrafi İşaretle Tescillendi</span>
-            <span class="registration-marquee-badge">
-              <img src="assets/eminonu-balik-ekmek-logo-transparent-clean.png" alt="" decoding="async" />
-            </span>
-            <span class="registration-marquee-note">İstanbul'un Kıyı Kültürü Koruma Altında</span>
-            <span class="registration-marquee-badge">
-              <img src="assets/eminonu-balik-ekmek-logo-transparent-clean.png" alt="" decoding="async" />
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <section class="home-product-definition-section" aria-labelledby="home-registration-title">
+      <section class="home-product-definition-section" aria-labelledby="home-registration-title" hidden>
         <div class="section-inner home-product-definition-layout">
           <article class="home-product-definition-lead" aria-labelledby="home-registration-title">
             <div class="home-registration-copy">
@@ -254,6 +243,7 @@
                   <img src="assets/turk-patent-ve-marka-kurumu-logo.svg" alt="" />
                 </span>
                 <span class="hero-certificate-copy">
+                  <small>RESMÎ BELGE</small>
                   <strong>Tescil Belgesini İncele</strong>
                 </span>
                 <i class="bi bi-arrow-right" aria-hidden="true"></i>
@@ -294,10 +284,6 @@
             </article>
           </div>
 
-          <figure class="home-product-process-visual">
-            <img src="assets/product-definition/balik-ekmek-hazirligi.jpg" alt="Eminönü Balık Ekmek hazırlanırken ekmek ve balıkların pişirilmesi" loading="lazy" decoding="async" />
-          </figure>
-
           <article class="home-product-distinction">
             <p>
               Eminönü Balık Ekmek’i diğer balık ekmeklerden ayıran başlıca
@@ -307,332 +293,141 @@
               kültürüyle özdeşleşmiş bir sokak lezzeti olarak sunulmasıdır.
             </p>
           </article>
+
+          <figure class="home-product-process-visual">
+            <img src="assets/product-definition/balik-ekmek-hazirligi.jpg" alt="Eminönü Balık Ekmek hazırlanırken ekmek ve balıkların pişirilmesi" loading="lazy" decoding="async" />
+          </figure>
         </div>
       </section>
 
-      <section class="home-news-section" aria-labelledby="home-news-title" data-news-carousel>
+      <section class="home-istib-feature-section" aria-labelledby="home-istib-feature-title">
         <div class="section-inner">
-          <div class="home-news-header">
-            <div class="home-news-heading">
-              <h2 id="home-news-title">Haberler</h2>
-              <p>Eminönü Balık Ekmeğin basındaki izlerini arşiv kupürleriyle keşfedin.</p>
+          <article class="home-product-definition-lead" aria-labelledby="home-registration-title">
+            <div class="home-registration-copy">
+              <span class="home-registration-kicker"><i class="bi bi-patch-check-fill" aria-hidden="true"></i> Coğrafi İşaret Tescili</span>
+              <h3 id="home-registration-title">Eminönü Balık Ekmek koruma altında</h3>
+              <p>İstanbul Ticaret Borsası tarafından müracaatı yapılarak koruma altına alınan “Eminönü Balık Ekmek”, Türk Patent ve Marka Kurumu nezdinde tescillendi.</p>
             </div>
+            <div class="home-registration-panel">
+              <a class="hero-certificate-link" href="cografi-tescil-belgesi.html">
+                <span class="hero-certificate-icon" aria-hidden="true"><img src="assets/turk-patent-ve-marka-kurumu-logo.svg" alt="" /></span>
+                <span class="hero-certificate-copy"><small>RESMÎ BELGE</small><strong>Tescil Belgesini İncele</strong></span>
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
 
-            <div class="home-news-controls" aria-label="Haber galerisi durumu">
-              <span class="home-news-status" data-news-status aria-live="polite">1–3 / 7</span>
-            </div>
+          <div class="home-istib-feature-grid">
+          <div class="home-istib-feature-copy-column">
+            <h2 id="home-istib-feature-title">İstanbul Ticaret<br />Borsası</h2>
+            <article class="home-istib-feature-card">
+              <p class="home-istib-feature-lead">Eminönü Balık Ekmeğin coğrafi işaret tescilini yapan ve belgesinin kullanılmasında yetkili olan İstanbul Ticaret Borsası 1924 yılında kurulmuş ve Türkiye'nin en büyük borsasıdır.</p>
+              <p>Türkiye Odalar ve Borsalar Birliği ile Odalar ve Borsalar Kanunu’nun 28. Maddesine göre; Ticaret borsaları, bu Kanunda yazılı esaslar çerçevesinde borsaya dâhil maddelerin alım satımı ve borsada oluşan fiyatlarının tespit, tescil ve ilânı işleriyle meşgul olmak üzere kurulan kamu tüzel kişiliğine sahip kurumlardır. Kambiyo ve kıymetli madenlerle ilgili borsalar bu Kanun kapsamı dışındadır. Bu nitelikleri itibarıyla Ticaret Borsaları;</p>
+              <ul>
+                <li>Etkin işleyen piyasa mekanizmasının oluşması,</li>
+                <li>Ürünlerin gerçek değerinin belirlenmesi,</li>
+                <li>Fiyat hareketlerinde istikrarın sağlanması,</li>
+                <li>Alım satımın güvenilir fiyatlar üzerinden yapılması.</li>
+                <li>Ulusal ve uluslararası piyasalar arasında dengenin kurulması fonksiyonlarını yerine getirmektedirler.</li>
+              </ul>
+              <p>Borsaların bu fonksiyonlarını yerine getirebilmesi için alım satımların kontrol edilerek kayda geçirilmesi, yani tescil edilmesi gerekir. Ticaret Borsalarının yönetim organları üyeleri arasında yapılan seçimle belirlenir.</p>
+            </article>
           </div>
-
-          <div class="home-news-rail">
-            <button
-              class="home-news-rail-arrow home-news-rail-prev"
-              type="button"
-              data-news-prev
-              aria-controls="home-news-track"
-              aria-label="Önceki haber"
-              disabled
-            >
-              <i class="bi bi-arrow-left" aria-hidden="true"></i>
-            </button>
-
-            <div
-              class="home-news-track"
-              id="home-news-track"
-              data-news-track
-              role="region"
-              aria-roledescription="carousel"
-              aria-label="Haberler"
-              tabindex="0"
-            >
-            <article class="home-news-card" data-news-card role="group" aria-roledescription="slide" aria-label="1 / 7">
-              <button
-                class="home-news-card-trigger"
-                type="button"
-                data-news-open
-                data-news-src="assets/news/turk-balikcisi-zdf-dizisinde-2010.png"
-                data-news-title="Türk Balıkçısı ZDF Dizisinde"
-                data-news-meta="İnternet haberi · 21 Temmuz 2010"
-                aria-label="Türk Balıkçısı ZDF Dizisinde haberini incele"
-              >
-                <span class="home-news-media">
-                  <img class="home-news-media-backdrop" src="assets/news/turk-balikcisi-zdf-dizisinde-2010.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                  <img class="home-news-media-image" src="assets/news/turk-balikcisi-zdf-dizisinde-2010.png" alt="" loading="lazy" decoding="async" />
-                  <span class="home-news-badge">İnternet</span>
-                </span>
-                <span class="home-news-copy">
-                  <span class="home-news-meta">İnternet haberi <time datetime="2010-07-21">21 Temmuz 2010</time></span>
-                  <strong>Türk Balıkçısı ZDF Dizisinde</strong>
-                  <span class="home-news-action">Haberi incele <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
-                </span>
+          <div class="home-istib-feature-media-stack">
+            <figure class="home-istib-feature-media">
+              <img src="assets/istib-bina-kolaj.png" alt="İstanbul Ticaret Borsası tarihi binası" loading="lazy" decoding="async" />
+              <button class="istib-hero-video-button shiny-video-cta" type="button" data-video-open aria-label="İSTİB tanıtım filmini oynat">
+                <span class="istib-hero-video-icon" aria-hidden="true"><i class="bi bi-play-fill"></i></span>
+                <span class="istib-hero-video-copy"><small>Tanıtım filmi</small><strong>İSTİB’i yakından izleyin</strong></span>
               </button>
-            </article>
-
-            <article class="home-news-card" data-news-card role="group" aria-roledescription="slide" aria-label="2 / 7">
-              <button
-                class="home-news-card-trigger"
-                type="button"
-                data-news-open
-                data-news-src="assets/news/vatan-balik-ekmeksiz-eminonu-olmaz-2004.jpg"
-                data-news-title="Balık Ekmeksiz Eminönü Olmaz"
-                data-news-meta="Vatan · Haşmet Babaoğlu · 8 Eylül 2004"
-                aria-label="Balık Ekmeksiz Eminönü Olmaz haberini incele"
-              >
-                <span class="home-news-media">
-                  <img class="home-news-media-backdrop" src="assets/news/vatan-balik-ekmeksiz-eminonu-olmaz-2004.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                  <img class="home-news-media-image" src="assets/news/vatan-balik-ekmeksiz-eminonu-olmaz-2004.jpg" alt="" loading="lazy" decoding="async" />
-                  <span class="home-news-badge">Arşiv</span>
-                </span>
-                <span class="home-news-copy">
-                  <span class="home-news-meta">Vatan · Haşmet Babaoğlu <time datetime="2004-09-08">8 Eylül 2004</time></span>
-                  <strong>Balık Ekmeksiz Eminönü Olmaz</strong>
-                  <span class="home-news-action">Haberi incele <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
-                </span>
-              </button>
-            </article>
-
-            <article class="home-news-card" data-news-card role="group" aria-roledescription="slide" aria-label="3 / 7">
-              <button
-                class="home-news-card-trigger"
-                type="button"
-                data-news-open
-                data-news-src="assets/news/sabah-galata-koprusunde-balik-ekmek-1999.jpg"
-                data-news-title="Galata Köprüsü’nde Balık-Ekmek Yesem!"
-                data-news-meta="Sabah · 6 Kasım 1999"
-                aria-label="Galata Köprüsü’nde Balık-Ekmek Yesem haberini incele"
-              >
-                <span class="home-news-media">
-                  <img class="home-news-media-backdrop" src="assets/news/sabah-galata-koprusunde-balik-ekmek-1999.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                  <img class="home-news-media-image" src="assets/news/sabah-galata-koprusunde-balik-ekmek-1999.jpg" alt="" loading="lazy" decoding="async" />
-                  <span class="home-news-badge">Arşiv</span>
-                </span>
-                <span class="home-news-copy">
-                  <span class="home-news-meta">Sabah <time datetime="1999-11-06">6 Kasım 1999</time></span>
-                  <strong>Galata Köprüsü’nde Balık-Ekmek Yesem!</strong>
-                  <span class="home-news-action">Haberi incele <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
-                </span>
-              </button>
-            </article>
-
-            <article class="home-news-card" data-news-card role="group" aria-roledescription="slide" aria-label="4 / 7">
-              <button
-                class="home-news-card-trigger"
-                type="button"
-                data-news-open
-                data-news-src="assets/news/hey-dergisi-18-nisan-1973.jpg"
-                data-news-title="Hey Dergisi’nde İstanbul ve Balık Ekmek"
-                data-news-meta="Hey Dergisi · 18 Nisan 1973"
-                aria-label="Hey Dergisi’nde İstanbul ve Balık Ekmek haberini incele"
-              >
-                <span class="home-news-media">
-                  <img class="home-news-media-backdrop" src="assets/news/hey-dergisi-18-nisan-1973.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                  <img class="home-news-media-image" src="assets/news/hey-dergisi-18-nisan-1973.jpg" alt="" loading="lazy" decoding="async" />
-                  <span class="home-news-badge">Arşiv</span>
-                </span>
-                <span class="home-news-copy">
-                  <span class="home-news-meta">Hey Dergisi <time datetime="1973-04-18">18 Nisan 1973</time></span>
-                  <strong>Hey Dergisi’nde İstanbul ve Balık Ekmek</strong>
-                  <span class="home-news-action">Haberi incele <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
-                </span>
-              </button>
-            </article>
-
-            <article class="home-news-card" data-news-card role="group" aria-roledescription="slide" aria-label="5 / 7">
-              <button
-                class="home-news-card-trigger"
-                type="button"
-                data-news-open
-                data-news-src="assets/news/cumhuriyet-seyyar-saticilar-14-eylul-1971.jpg"
-                data-news-title="Seyyar Satıcılar Şehri Parselledi"
-                data-news-meta="Cumhuriyet · 14 Eylül 1971"
-                aria-label="Seyyar Satıcılar Şehri Parselledi haberini incele"
-              >
-                <span class="home-news-media">
-                  <img class="home-news-media-backdrop" src="assets/news/cumhuriyet-seyyar-saticilar-14-eylul-1971.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                  <img class="home-news-media-image" src="assets/news/cumhuriyet-seyyar-saticilar-14-eylul-1971.jpg" alt="" loading="lazy" decoding="async" />
-                  <span class="home-news-badge">Arşiv</span>
-                </span>
-                <span class="home-news-copy">
-                  <span class="home-news-meta">Cumhuriyet <time datetime="1971-09-14">14 Eylül 1971</time></span>
-                  <strong>Seyyar Satıcılar Şehri Parselledi</strong>
-                  <span class="home-news-action">Haberi incele <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
-                </span>
-              </button>
-            </article>
-
-            <article class="home-news-card" data-news-card role="group" aria-roledescription="slide" aria-label="6 / 7">
-              <button
-                class="home-news-card-trigger"
-                type="button"
-                data-news-open
-                data-news-src="assets/news/cumhuriyet-koprualti-dubalari-25-mayis-1967.jpg"
-                data-news-title="Köprüaltı Dubaları Mutlu Bir Gün Yaşadı"
-                data-news-meta="Cumhuriyet · 25 Mayıs 1967"
-                aria-label="Köprüaltı Dubaları Mutlu Bir Gün Yaşadı haberini incele"
-              >
-                <span class="home-news-media">
-                  <img class="home-news-media-backdrop" src="assets/news/cumhuriyet-koprualti-dubalari-25-mayis-1967.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                  <img class="home-news-media-image" src="assets/news/cumhuriyet-koprualti-dubalari-25-mayis-1967.jpg" alt="" loading="lazy" decoding="async" />
-                  <span class="home-news-badge">Arşiv</span>
-                </span>
-                <span class="home-news-copy">
-                  <span class="home-news-meta">Cumhuriyet <time datetime="1967-05-25">25 Mayıs 1967</time></span>
-                  <strong>Köprüaltı Dubaları Mutlu Bir Gün Yaşadı</strong>
-                  <span class="home-news-action">Haberi incele <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
-                </span>
-              </button>
-            </article>
-
-            <article class="home-news-card" data-news-card role="group" aria-roledescription="slide" aria-label="7 / 7">
-              <button
-                class="home-news-card-trigger"
-                type="button"
-                data-news-open
-                data-news-src="assets/news/teke-tek-balik-ekmek-surecek.jpg"
-                data-news-title="Balık-Ekmek Sürecek"
-                data-news-meta="Teke Tek · Fatih Altaylı"
-                aria-label="Balık-Ekmek Sürecek haberini incele"
-              >
-                <span class="home-news-media">
-                  <img class="home-news-media-backdrop" src="assets/news/teke-tek-balik-ekmek-surecek.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                  <img class="home-news-media-image" src="assets/news/teke-tek-balik-ekmek-surecek.jpg" alt="" loading="lazy" decoding="async" />
-                  <span class="home-news-badge">Arşiv</span>
-                </span>
-                <span class="home-news-copy">
-                  <span class="home-news-meta">Teke Tek · Fatih Altaylı</span>
-                  <strong>Balık-Ekmek Sürecek</strong>
-                  <span class="home-news-action">Haberi incele <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i></span>
-                </span>
-              </button>
-            </article>
-            </div>
-
-            <button
-              class="home-news-rail-arrow home-news-rail-next"
-              type="button"
-              data-news-next
-              aria-controls="home-news-track"
-              aria-label="Sonraki haber"
-            >
-              <i class="bi bi-arrow-right" aria-hidden="true"></i>
-            </button>
+            </figure>
+          </div>
           </div>
         </div>
       </section>
 
-      <section class="resource-section content-section" aria-labelledby="resource-title">
+      <section class="home-quick-links-section" aria-label="Hızlı erişim">
         <div class="section-inner">
-          <h2 class="visually-hidden" id="resource-title">Kaynaklar</h2>
-          <div class="resource-grid">
-            <a class="resource-card" href="kutuphane.html">
-              <span class="resource-icon" aria-hidden="true"><i class="bi bi-collection"></i></span>
-              <h3>Kütüphane</h3>
-              <p>Belgeseller, dizi-film, kitaplar ve makaleler.</p>
+          <div class="home-quick-links-grid">
+            <a class="home-quick-link-card" href="cografi-isaret.html">
+              <span class="home-quick-link-icon" aria-hidden="true"><i class="bi bi-patch-check-fill"></i></span>
+              <span class="home-quick-link-copy">
+                <strong>Coğrafi Tescil</strong>
+                <small>Tescil süreci, belge ve denetim bilgilerini inceleyin.</small>
+              </span>
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
             </a>
-            <a class="resource-card" href="basin-yansimalari.html">
-              <span class="resource-icon" aria-hidden="true"><i class="bi bi-newspaper"></i></span>
-              <h3>Basın Yansımaları</h3>
-              <p>Basın yansımalarını görmek için tıklayınız.</p>
+            <a class="home-quick-link-card" href="kutuphane.html">
+              <span class="home-quick-link-icon" aria-hidden="true"><i class="bi bi-book-fill"></i></span>
+              <span class="home-quick-link-copy">
+                <strong>Kütüphane</strong>
+                <small>Kitap, makale, belgesel ve arşiv içeriklerini keşfedin.</small>
+              </span>
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
             </a>
-            <a class="resource-card" href="makaleler.html">
-              <span class="resource-icon" aria-hidden="true"><i class="bi bi-file-earmark-text"></i></span>
-              <h3>Makaleler</h3>
-              <p>Makaleler için tıklayınız</p>
+            <a class="home-quick-link-card" href="firmalar-ve-satis-noktalari.html">
+              <span class="home-quick-link-icon" aria-hidden="true"><i class="bi bi-geo-alt-fill"></i></span>
+              <span class="home-quick-link-copy">
+                <strong>Satış Noktaları</strong>
+                <small>Yetkili firma ve satış noktalarını harita üzerinden bulun.</small>
+              </span>
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
             </a>
-            <a class="resource-card" href="cografi-isaret.html">
-              <span class="resource-icon" aria-hidden="true"><i class="bi bi-megaphone"></i></span>
-              <h3>Coğrafi İşaret bilgilendirmeleri</h3>
-              <p>Coğrafi işaret bilgilendirmeleri için tıklayınız.</p>
-            </a>
-            <a class="resource-card" href="denetimler.html">
-              <span class="resource-icon" aria-hidden="true"><i class="bi bi-clipboard-check"></i></span>
-              <h3>Denetimler</h3>
-              <p>Denetim raporları için tıklayınız.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section firms-section home-firms-application-section" aria-labelledby="home-firms-application-title">
+        <div class="section-inner firms-layout firms-layout-single">
+          <header class="firms-section-heading">
+            <h1 id="home-firms-application-title">Yetkili Firmalar Belirleniyor</h1>
+          </header>
+          <div class="notice-card notice-card-application">
+            <div class="notice-card-brand" aria-label="Değerlendirme süreci devam ediyor"><div class="firms-status-loader" aria-hidden="true"></div></div>
+            <p>Başvuru formu, belge talebi ve süreç bilgilendirmeleri İSTİB tarafından duyurulacaktır.</p>
+            <a class="notice-card-action shiny-cta" href="basvuru-formu.html">
+              <span class="shiny-cta-label">Başvuru formuna git</span>
+              <span class="shiny-cta-icon" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
             </a>
           </div>
         </div>
       </section>
 
       <section class="home-organizations-section" aria-labelledby="home-partners-title">
-        <div class="section-inner">
-          <div class="home-partners-block" aria-labelledby="home-partners-title">
-            <div class="home-partner-heading">
-              <h2 id="home-partners-title">Partnerler</h2>
-              <span aria-hidden="true"></span>
-            </div>
-
-            <div class="home-partner-grid">
-              <a
-                class="home-partner-card"
-                href="https://istib.org.tr/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="İstanbul Ticaret Borsası web sitesi"
-              >
-                <img
-                  class="home-partner-logo home-partner-logo-istib"
-                  src="assets/istib-logo-transparent.png"
-                  alt="İstanbul Ticaret Borsası"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-
-              <a
-                class="home-partner-card home-partner-card-agriculture"
-                href="https://istanbul.tarimorman.gov.tr/Menu/5/Ilce-Mudurlukleri#heading19"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Fatih İlçe Tarım ve Orman Müdürlüğü resmî web sayfası"
-              >
-                <span class="home-partner-agriculture-lockup">
-                  <img
-                    src="assets/partners/tarim-orman-bakanligi-resmi-amblem.png"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <span class="home-partner-agriculture-copy" aria-hidden="true">
-                    <span>T.C. Tarım ve Orman Bakanlığı</span>
-                    <strong>Fatih İlçe Tarım ve Orman Müdürlüğü</strong>
-                  </span>
-                </span>
-              </a>
-
-              <a
-                class="home-partner-card home-partner-card-fish-chamber"
-                href="https://www.istesob.org.tr/istanbul-balik-saticilari-esnaf-odasi/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="İstanbul Balık Satıcıları Esnafı Odası web sitesi"
-              >
-                <span class="home-partner-fish-lockup">
-                  <img
-                    class="home-partner-logo-fish-chamber"
-                    src="assets/partners/istanbul-balik-saticilari-esnaf-odasi-resmi.jpg"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <span class="home-partner-fish-copy" aria-hidden="true">
-                    <strong>İstanbul Balık Satıcıları</strong>
-                    <span>Esnafı Odası</span>
-                  </span>
-                </span>
-              </a>
-            </div>
+        <div class="section-inner home-partners-block">
+          <div class="home-partner-heading">
+            <h2 id="home-partners-title">Partnerler</h2>
+            <span aria-hidden="true"></span>
+          </div>
+          <div class="home-partner-grid">
+            <a class="home-partner-card" href="https://istib.org.tr/" target="_blank" rel="noreferrer" aria-label="İstanbul Ticaret Borsası web sitesi">
+              <img class="home-partner-logo-istib" src="assets/istib-logo-transparent.png" alt="İstanbul Ticaret Borsası" loading="lazy" decoding="async" />
+            </a>
+            <a class="home-partner-card home-partner-card-agriculture" href="https://istanbul.tarimorman.gov.tr/" target="_blank" rel="noreferrer" aria-label="İstanbul İl Tarım ve Orman Müdürlüğü resmî web sayfası">
+              <span class="home-partner-agriculture-lockup">
+                <img src="assets/partners/tarim-orman-bakanligi-resmi-amblem.png" alt="" loading="lazy" decoding="async" />
+                <span class="home-partner-agriculture-copy"><span>T.C. Tarım ve Orman Bakanlığı</span><strong>İstanbul İl Tarım ve Orman Müdürlüğü</strong></span>
+              </span>
+            </a>
+            <a class="home-partner-card" href="https://www.istesob.org.tr/istanbul-balik-saticilari-esnaf-odasi/" target="_blank" rel="noreferrer" aria-label="İstanbul Balık Satıcıları Esnafı Odası web sitesi">
+              <span class="home-partner-fish-lockup"><img class="home-partner-logo-fish-chamber" src="assets/partners/istanbul-balik-saticilari-esnaf-odasi-resmi.jpg" alt="" loading="lazy" decoding="async" /><span class="home-partner-fish-copy"><strong>İstanbul Balık Satıcıları</strong><span>Esnaf Odası</span></span></span>
+            </a>
           </div>
         </div>
       </section>
+
     </main>
 
     <footer class="site-footer">
       <div class="section-inner footer-main">
-        <div class="footer-contact-block">
-          <h2>İstanbul Ticaret Borsası</h2>
-          <p>Hobyar Mah. Zahire Borsası Sokak</p>
-          <p>No:3 34112 Bahçekapı / Fatih / İstanbul</p>
-          <p><strong>Phone:</strong> 0 (212) 511-8440-138</p>
-          <p><strong>Email:</strong> arge@istib.org.tr</p>
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" aria-label="Ana sayfaya dön">
+            <img src="assets/eminönü_balik_ekmek_logo.png" alt="Eminönü Balık Ekmek" loading="lazy" decoding="async" />
+            <span>Eminönü Balık Ekmek</span>
+          </a>
+          <p class="footer-brand-copy">
+            İstanbul Ticaret Borsası güvencesiyle coğrafi işaretle tescillenen Eminönü Balık Ekmeği'nin resmî tanıtım platformu.
+          </p>
           <div class="footer-socials" aria-label="Sosyal medya">
             <a href="https://www.instagram.com/istanbulticaretborsasi/?hl=tr" target="_blank" rel="noreferrer" aria-label="Instagram hesabı"><i class="bi bi-instagram" aria-hidden="true"></i></a>
             <a href="https://x.com/istib1924" target="_blank" rel="noreferrer" aria-label="X hesabı"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
@@ -642,18 +437,28 @@
           </div>
         </div>
 
-        <nav class="footer-menu" aria-label="Alt menü">
+        <nav class="footer-col" aria-label="Hızlı erişim">
           <a href="index.html">Ana Sayfa</a>
-          <a href="eminonu-balik-ekmek.html">Hakkımızda</a>
+          <a href="tarihce.html">Hakkımızda</a>
+          <a href="cografi-isaret.html">Coğrafi Tescil</a>
+          <a href="firmalar-ve-satis-noktalari.html">Satış Noktaları</a>
           <a href="basvuru-formu.html">Başvuru Formu</a>
-          <a href="firmalar-ve-satis-noktalari.html">Firmalar ve Satış Noktaları</a>
-          <a href="tarihce.html">Tarihçe</a>
         </nav>
 
-        <a class="footer-badge" href="index.html" aria-label="Ana sayfaya dön">
-          <img src="assets/eminonu-balik-ekmek-logo-transparent-clean.png" alt="Eminönü Balık Ekmek" loading="lazy" decoding="async" />
-          <span>Eminönü Balık Ekmek</span>
-        </a>
+        <nav class="footer-col" aria-label="Kaynaklar">
+          <a href="tarihce.html">Tarihçe</a>
+          <a href="kutuphane.html">Kütüphane</a>
+          <a href="denetimler.html">Denetimler</a>
+          <a href="basin-kiti.html">Basın Kiti</a>
+          <a href="iletisim.html">İletişim</a>
+        </nav>
+
+        <div class="footer-col footer-contact-block">
+          <p class="footer-org-name">İstanbul Ticaret Borsası</p>
+          <p>Hobyar Mah. Zahire Borsası Sokak<br />No:3 34112 Bahçekapı / Fatih / İstanbul</p>
+          <p><strong>Telefon:</strong> 0 (212) 511 84 40 / 138</p>
+          <p><strong>E-posta:</strong> <a href="mailto:arge@istib.org.tr">arge@istib.org.tr</a></p>
+        </div>
       </div>
       <div class="section-inner footer-bottom">
         <p>© Copyright <strong>İSTİB</strong> All Rights Reserved</p>
@@ -676,27 +481,7 @@
       </div>
     </div>
 
-    <div class="news-lightbox" data-news-lightbox aria-hidden="true">
-      <div class="news-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="news-lightbox-title">
-        <div class="news-lightbox-toolbar">
-          <a class="news-lightbox-open" data-news-lightbox-open href="#" target="_blank" rel="noreferrer">
-            <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-            Yeni sekmede aç
-          </a>
-          <button class="news-lightbox-close" type="button" data-news-lightbox-close aria-label="Haberi kapat">×</button>
-        </div>
-        <button class="news-lightbox-nav news-lightbox-prev" type="button" data-news-lightbox-prev aria-label="Önceki haber">‹</button>
-        <figure class="news-lightbox-figure">
-          <img data-news-lightbox-image alt="" />
-          <figcaption>
-            <strong id="news-lightbox-title" data-news-lightbox-title></strong>
-            <span data-news-lightbox-meta></span>
-          </figcaption>
-        </figure>
-        <button class="news-lightbox-nav news-lightbox-next" type="button" data-news-lightbox-next aria-label="Sonraki haber">›</button>
-      </div>
-    </div>
 
-    <script src="script.js?v=20260722-home-reload-intro-first"></script>
+    <script src="script.js?v=20260730-home-quick-links-reveal"></script>
   </body>
 </html>

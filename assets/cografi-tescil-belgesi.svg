@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="2000" viewBox="0 0 1400 2000" role="img" aria-labelledby="title description">
+  <title id="title">Eminönü Balık Ekmek Coğrafi İşaret Tescil Bilgileri</title>
+  <desc id="description">No: 1860 Mahreç İşaretli Eminönü Balık Ekmek için İstanbul Ticaret Borsası adına 20 Mayıs 2026 tarihli tescil bilgileri.</desc>
+  <defs>
+    <pattern id="motif" width="42" height="36" patternUnits="userSpaceOnUse">
+      <path d="M21 2 38 11v14L21 34 4 25V11Z" fill="none" stroke="#e7e3dc" stroke-width="1.4"/>
+      <circle cx="21" cy="18" r="2" fill="#ebe7e0"/>
+    </pattern>
+  </defs>
+
+  <rect width="1400" height="2000" fill="#fffefb"/>
+  <rect width="1400" height="2000" fill="url(#motif)" opacity=".58"/>
+  <path d="M70 410V82h1260v328h-54V136H124v274Z" fill="#d91f26"/>
+  <path d="M70 1590v328h1260v-328h-54v274H124v-274Z" fill="#d91f26"/>
+
+  <image href="turk-patent-ve-marka-kurumu-logo.svg" x="500" y="126" width="400" height="190" preserveAspectRatio="xMidYMid meet"/>
+
+  <g fill="#101010" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">
+    <text x="700" y="476" font-size="38" font-weight="800" letter-spacing="1.4">COĞRAFİ İŞARET TESCİL BELGESİ</text>
+    <text x="700" y="592" font-size="42" font-weight="800">No: 1860 – Mahreç İşareti</text>
+    <text x="700" y="790" font-size="44" font-weight="800">EMİNÖNÜ BALIK EKMEK</text>
+
+    <text x="700" y="1125" font-size="29" font-weight="400">Tescil Ettiren</text>
+    <text x="700" y="1185" font-size="39" font-weight="800">İSTANBUL TİCARET BORSASI</text>
+
+    <text x="700" y="1440" font-size="27" font-weight="400">Bu coğrafi işaret, 6769 sayılı Sınai Mülkiyet Kanunu kapsamında</text>
+    <text x="700" y="1492" font-size="27" font-weight="400">04.06.2025 tarihinden itibaren korunmak üzere 20.05.2026 tarihinde</text>
+    <text x="700" y="1544" font-size="27" font-weight="400">tescil edilmiştir.</text>
+  </g>
+</svg>

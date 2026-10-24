@@ -107,15 +107,15 @@
       if (firm.email) {
         contactList.append(makeContactLine("bi-envelope", firm.email, `mailto:${firm.email}`));
       }
-      if (firm.address) {
-        contactList.append(makeContactLine("bi-geo-alt", firm.address));
-      }
       if (!contactList.childElementCount) {
         contactList.textContent = "—";
       }
       contactCell.append(contactList);
 
-      row.append(companyCell, websiteCell, contactCell);
+      const addressCell = makeCell("Adres");
+      addressCell.textContent = firm.address || "â€”";
+
+      row.append(companyCell, websiteCell, contactCell, addressCell);
       tableBody.append(row);
     });
   };

@@ -8,7 +8,7 @@
       content="Eminönü Balık Ekmek satış noktaları ve yetkili firmalar hakkında güncel bilgilere bu sayfadan ulaşabilirsiniz."
     />
     <title>Firmalar ve Satış Noktaları | Eminönü Balık Ekmeği</title>
-   <link rel="icon" type="image/png" href="assets/eminonu-balik-ekmek-logo-transparent-clean.png" />
+   <link rel="icon" type="image/png" href="assets/eminönü_balik_ekmek_logo.png" />
     <script src="reload-bootstrap.js?v=20260722-reload-top-first"></script>
     <script>document.documentElement.classList.add("reveal-enabled");</script>
     <link
@@ -17,7 +17,7 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
-    <link rel="stylesheet" href="style.css?v=20260723-firms-istib-logo" />
+    <link rel="stylesheet" href="style.css?v=20260727-mobile-application-notice-align" />
   </head>
   <body>
     <header class="site-header header-solid" data-header>
@@ -32,11 +32,12 @@
         <div class="nav-item has-dropdown">
           <button class="nav-trigger" type="button" aria-haspopup="true">Hakkımızda</button>
           <div class="submenu" aria-label="Hakkımızda alt menüsü">
-            <a href="eminonu-balik-ekmek.html">Eminönü Balık Ekmeği</a>
+            <a href="eminonu-balik-ekmegi.html">Eminönü Balık Ekmeği</a>
             <a href="istanbul-ticaret-borsasi.html">İstanbul Ticaret Borsası</a>
           </div>
         </div>
-        <a href="tarihce.html">Tarihçe</a>
+        <a href="cografi-isaret.html">Coğrafi Tescil</a>
+        <a href="kutuphane.html">Kütüphane</a>
         <a href="firmalar-ve-satis-noktalari.html">Balık Ekmek Satış Noktaları</a>
         <a href="basin-kiti.html">Basın Kiti</a>
         <a href="iletisim.html">İletişim</a>
@@ -58,12 +59,8 @@
           </header>
 
           <div class="notice-card notice-card-application">
-            <div class="notice-card-brand" aria-hidden="true">
-              <img
-                src="assets/istib-logo-transparent.png"
-                alt=""
-                decoding="async"
-              />
+            <div class="notice-card-brand" aria-label="Değerlendirme süreci devam ediyor">
+              <div class="firms-status-loader" aria-hidden="true"></div>
             </div>
             <p>
               Başvuru formu, belge talebi ve süreç bilgilendirmeleri İSTİB
@@ -79,22 +76,10 @@
         </div>
       </section>
 
-      <section class="section firms-directory-section" aria-labelledby="firms-directory-title">
+      <section class="section firms-directory-section" aria-label="Satış yapan firmalar ve satış noktaları">
         <div class="section-inner firms-directory-layout">
-          <header class="firms-directory-intro">
-            <span class="firms-directory-eyebrow">Balık Ekmek Satış Noktaları</span>
-            <h2 id="firms-directory-title">Satış Yapan Firmalar ve Detayları</h2>
-            <p>
-              Yetkili satış noktalarını harita üzerinden görüntüleyebilir; firma,
-              internet sitesi ve iletişim bilgilerine aşağıdaki listeden ulaşabilirsiniz.
-            </p>
-          </header>
-
-          <article class="firms-map-card" aria-labelledby="firms-map-title">
+          <article class="firms-map-card firms-directory-card-reveal" aria-labelledby="firms-map-title">
             <header class="firms-card-header firms-map-card-header">
-              <span class="firms-card-icon" aria-hidden="true">
-                <i class="bi bi-geo-alt"></i>
-              </span>
               <div>
                 <h3 id="firms-map-title">Satış Noktaları Haritası</h3>
                 <p>Haritadaki işaretlerden firma konumlarını inceleyebilirsiniz.</p>
@@ -118,14 +103,11 @@
             </div>
           </article>
 
-          <article class="firms-table-card" aria-labelledby="firms-table-title">
+          <article class="firms-table-card firms-directory-card-reveal" aria-labelledby="firms-table-title">
             <header class="firms-card-header">
-              <span class="firms-card-icon" aria-hidden="true">
-                <i class="bi bi-building-check"></i>
-              </span>
               <div>
-                <h3 id="firms-table-title">Coğrafi İşaretli Ürün Satışı Yapan Firmalar</h3>
-                <p>Yayımlanan yetkili firma kayıtları güncel bilgileriyle listelenir.</p>
+                <h3 id="firms-table-title">Yetkili Firmalar</h3>
+                <p>Yetkili firmaların şirket, web sitesi ve iletişim bilgilerini burada inceleyebilirsiniz.</p>
               </div>
             </header>
 
@@ -139,19 +121,15 @@
                     <th scope="col">Şirket İsmi</th>
                     <th scope="col">Web adresi</th>
                     <th scope="col">İletişim Bilgileri</th>
+                    <th scope="col">Adres</th>
                   </tr>
                 </thead>
                 <tbody data-firms-table-body>
-                  <tr class="firms-table-empty-row">
-                    <td colspan="3">
-                      <div class="firms-table-empty">
-                        <span aria-hidden="true"><i class="bi bi-shop"></i></span>
-                        <div>
-                          <strong>Yetkili satış noktaları yakında burada yer alacak.</strong>
-                          <p>
-                            Firma ve iletişim bilgileri kesinleştiğinde bu alan güncellenecektir.
-                          </p>
-                        </div>
+                  <tr class="firms-table-empty-row firms-table-pending-row">
+                    <td colspan="4">
+                      <div class="firms-table-pending">
+                        <i class="bi bi-hourglass-split" aria-hidden="true"></i>
+                        <span>Firma kayıtları yayımlandıkça bu tabloda listelenecektir.</span>
                       </div>
                     </td>
                   </tr>
@@ -165,12 +143,14 @@
 
     <footer class="site-footer">
       <div class="section-inner footer-main">
-        <div class="footer-contact-block">
-          <h2>İstanbul Ticaret Borsası</h2>
-          <p>Hobyar Mah. Zahire Borsası Sokak</p>
-          <p>No:3 34112 Bahçekapı / Fatih / İstanbul</p>
-          <p><strong>Phone:</strong> 0 (212) 511-8440-138</p>
-          <p><strong>Email:</strong> arge@istib.org.tr</p>
+        <div class="footer-brand">
+          <a class="footer-logo" href="index.html" aria-label="Ana sayfaya dön">
+            <img src="assets/eminönü_balik_ekmek_logo.png" alt="Eminönü Balık Ekmek" loading="lazy" decoding="async" />
+            <span>Eminönü Balık Ekmek</span>
+          </a>
+          <p class="footer-brand-copy">
+            İstanbul Ticaret Borsası güvencesiyle coğrafi işaretle tescillenen Eminönü Balık Ekmeği'nin resmî tanıtım platformu.
+          </p>
           <div class="footer-socials" aria-label="Sosyal medya">
             <a href="https://www.instagram.com/istanbulticaretborsasi/?hl=tr" target="_blank" rel="noreferrer" aria-label="Instagram hesabı"><i class="bi bi-instagram" aria-hidden="true"></i></a>
             <a href="https://x.com/istib1924" target="_blank" rel="noreferrer" aria-label="X hesabı"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
@@ -180,18 +160,28 @@
           </div>
         </div>
 
-        <nav class="footer-menu" aria-label="Alt menü">
+        <nav class="footer-col" aria-label="Hızlı erişim">
           <a href="index.html">Ana Sayfa</a>
-          <a href="eminonu-balik-ekmek.html">Hakkımızda</a>
+          <a href="tarihce.html">Hakkımızda</a>
+          <a href="cografi-isaret.html">Coğrafi Tescil</a>
+          <a href="firmalar-ve-satis-noktalari.html">Satış Noktaları</a>
           <a href="basvuru-formu.html">Başvuru Formu</a>
-          <a href="firmalar-ve-satis-noktalari.html">Firmalar ve Satış Noktaları</a>
-          <a href="tarihce.html">Tarihçe</a>
         </nav>
 
-        <a class="footer-badge" href="index.html" aria-label="Ana sayfaya dön">
-          <img src="assets/eminonu-balik-ekmek-logo-transparent-clean.png" alt="Eminönü Balık Ekmek" loading="lazy" decoding="async" />
-          <span>Eminönü Balık Ekmek</span>
-        </a>
+        <nav class="footer-col" aria-label="Kaynaklar">
+          <a href="tarihce.html">Tarihçe</a>
+          <a href="kutuphane.html">Kütüphane</a>
+          <a href="denetimler.html">Denetimler</a>
+          <a href="basin-kiti.html">Basın Kiti</a>
+          <a href="iletisim.html">İletişim</a>
+        </nav>
+
+        <div class="footer-col footer-contact-block">
+          <p class="footer-org-name">İstanbul Ticaret Borsası</p>
+          <p>Hobyar Mah. Zahire Borsası Sokak<br />No:3 34112 Bahçekapı / Fatih / İstanbul</p>
+          <p><strong>Telefon:</strong> 0 (212) 511 84 40 / 138</p>
+          <p><strong>E-posta:</strong> <a href="mailto:arge@istib.org.tr">arge@istib.org.tr</a></p>
+        </div>
       </div>
       <div class="section-inner footer-bottom">
         <p>© Copyright <strong>İSTİB</strong> All Rights Reserved</p>
@@ -203,6 +193,6 @@
       crossorigin=""
     ></script>
     <script src="firms-map.js?v=20260722-firms-directory-map"></script>
-    <script src="script.js?v=20260722-scrollbar-soft-hide"></script>
+    <script src="script.js?v=20260729-firms-directory-initial-reveal-footer-refresh"></script>
   </body>
 </html>
