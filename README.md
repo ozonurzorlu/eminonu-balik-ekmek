@@ -2,6 +2,9 @@
 
 Eminönü balık ekmeğinin tarihini, kültürel önemini ve coğrafi işaret sürecini anlatan çok sayfalı, duyarlı bir web sitesi.
 
+- **Canlı kurum sitesi:** [eminonubalikekmek.com.tr](https://www.eminonubalikekmek.com.tr/)
+- **GitHub Pages önizlemesi:** [ozonurzorlu.github.io/eminonu-balik-ekmek](https://ozonurzorlu.github.io/eminonu-balik-ekmek/)
+
 ## Site bölümleri
 
 - Ürün ve coğrafi işaret bilgileri
